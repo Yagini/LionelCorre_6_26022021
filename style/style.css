@@ -1,0 +1,271 @@
+:root {
+    --red-color: #901C1C;
+    --orange-color: #D3573C;
+    --gray--color: #525252;
+    --light-gray-color: #FAFAFA;    
+}
+
+@font-face {    
+    font-family: "DMsans-regular";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./font/DMSans-Regular.ttf") format("truetype");
+}
+@font-face {    
+    font-family: "DMsans-medium";
+    font-style: normal;
+    font-weight: 500;
+    src: url("./font/DMSans-Medium.ttf") format("truetype");
+}
+@font-face {    
+    font-family: "DMsans-bold";
+    font-style: normal;
+    font-weight: 700;
+    src: url("./font/DMSans-Bold.ttf") format("truetype");
+}
+
+body {
+    font-family: "DMsans-regular";
+    margin: 0 20px;
+}
+
+h1, h2 {
+    font-weight: 400;
+}
+
+
+.content {
+    position: relative;
+    top: 50px;
+}
+
+.header {        
+    position: absolute; 
+    top: 40px;
+    z-index: 1;
+}
+
+.header__logo {
+    height: 38px;
+}
+
+.nav__content {
+    align-items: center;
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    width: 335px;         
+}
+
+.photographer {
+    display: flex;
+    flex-wrap: wrap;            
+}
+.photographer__card {
+    margin-top: 30px;        
+    >
+    text-align: center;
+}
+
+.photographer__city {
+    color: var(--red-color);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;       
+}
+
+.photographer__frame {    
+    overflow: hidden;    
+    display : inline-block;
+    position: relative;
+    vertical-align: middle;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.photographer__name {
+    color: var(--orange-color);
+    font-size: 36px;    
+    font-weight: 400;
+    margin-top: 20px;   
+}
+
+.photographer__portrait {      
+    position: relative;
+}
+.photographer__portrait--mimi {
+    width: 320px;
+    height: auto;
+    top: -95px;
+    left: -60px;
+}
+.photographer__portrait--ellie {
+    width: 200px;
+    height: auto;    
+    top: -20px;
+}
+.photographer__portrait--tracy {
+    width: 600px;    
+    left: -200px;
+    top: -230px;   
+}
+.photographer__portrait--nabeel {
+    height: auto;
+    left: -180px;
+    top: -220px;
+    width: 550px;
+}
+.photographer__portrait--rhode {
+    left: -130px;
+    top: -90px;
+    width: 526px;    
+}
+.photographer__portrait--marcel {    
+    left: -160px;
+    top: -50px;
+    width: 526px;
+}
+.photographer__price {
+    color: var(--gray--color);
+    font-size: 9px;
+    line-height: 12px;
+}
+
+.photographer__tagline {
+    font-size: 10px;
+    line-height: 13px;
+}
+
+.photographer__city, .photographer__tagline, .photographer__price{
+    margin-bottom: 4px;
+}
+
+.pop-up {
+    align-items: center;
+    display: flex;
+    display: none;
+    justify-content: center;
+}
+
+.tag {
+    border: 0.4px solid var(--light-gray-color);
+    box-sizing: border-box;
+    border-radius: 11px;
+    color: var(--red-color);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    margin-right: 5px;
+    padding: 1px 6px;
+}
+
+.title {
+    color: var(--red-color);
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 100px;        
+    text-align: end;    
+}
+
+@media only screen and (min-width: 1024px) {
+
+h1, h2 {
+    font-size: 36px;
+}
+
+.content {
+    position: relative;
+}
+
+.header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;    
+    position: absolute; 
+    top: 44px;
+    z-index: 1;
+}
+
+.header__logo {
+    height: auto;
+}
+
+.nav {
+    margin-left: 85px;
+}
+
+.nav__content {
+    display: flex;    
+}
+
+.photographer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1300px;        
+}
+.photographer__card {
+    margin: 35px 0;    
+    width: 400px;
+    text-align: center;
+}
+
+.photographer__city {
+    color: var(--red-color);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;       
+}
+
+.photographer__portrait {    
+    height: 356px;
+    object-fit: cover;    
+    width: 528px;
+}
+
+.photographer__price {
+    color: var(--gray--color);
+    font-size: 9px;
+    line-height: 12px;
+}
+
+.photographer__tagline {
+    font-size: 10px;
+    line-height: 13px;
+}
+
+.photographer__city, .photographer__tagline, .photographer__price{
+    margin-bottom: 4px;
+}
+
+.pop-up {
+    align-items: center;
+    display: flex;
+    display: none;
+    justify-content: center;
+}
+
+.tag {
+    border: 0.4px solid var(--light-gray-color);
+    box-sizing: border-box;
+    border-radius: 11px;
+    color: var(--red-color);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    margin-right: 5px;
+    padding: 1px 6px;
+}
+
+.title {
+    color: var(--red-color);
+    font-size: 36px;   
+    line-height: 18px;
+    margin-bottom: 70px;
+    margin-top: 44px;
+    margin-right: 44px;
+    text-align: end; 
+}
+
+}

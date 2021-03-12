@@ -4,50 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/reset.css">       
+    <link rel="stylesheet" href="./style/all.css">
     <title>FishEye Photographes</title>
   </head>
-  <body>
-    <header>
-      
-    </header>
-    <main>
-        <header class="header" role="banner">
+  <body>    
+    <main class="photographer__main">
+        <header class="photographer__header" role="banner">
             <a aria-label="FishEye" href="index.html">
                 <img src="./images/logo.svg" alt="Fisheye Home page"/>
             </a>
         </header>
-        <h1></h1>
-        <p></p>
-        <a href="" aria-label="tag"></a>
-        <a href="" aria-label="tag"></a>
-        <a href="" aria-label="tag"></a>
-        <a href="" aria-label="tag"></a>
-        <button aria-label="Contactez moi">Contactez-moi</button>
-        <img src="" alt=""> <!-- photo portrait du photographe-->
-        <label for="">Trier par</label>
-        <input type="text"> <!-- nom du menu de sélection-->        
-        <select name="" id=""></select>
-        <section>
-            <img src="" alt="Lilac"> <!-- Ouvre la lightbox -->
-            <p></p>
-            <p></p>
-            <img src="fontawsome" alt="likes"> <!-- icone -->
-        </section>
+        <!-- section photographe -->
+        <section class="photographers__block"></section>
+        <!-- section carousel -->
+        <section class="carousel__block"></section>   
+    
+        <!--section media--> 
+        <section class="portfolio__content" id="b-content"></section>       
 
-        <!-- Partie Lightbox (modale) -->
-        <div aria-label="image closeup view">
-            <img src="" alt="">
-            <p></p>
-            <a href=""><!-- icones flèches image précédente --></a>
-            <a href=""><!-- icones flèches image suivante --></a>
-            <button class="close-dialog"></button>
-        </div>
         
+
+        <!-- Partie Lightbox (modale) --> <!-- ????? CAROUSEL (cf bootstrap) ???? -->
+        <div aria-label="image closeup view" class="lightbox">
+            <img src="./images/Photos/Mimi/Animals_Rainbow.jpg" alt="">
+            <h3>blabla</h3>
+            <a href=" " name="next-image"><i class="fas fa-chevron-left"></i></a><!-- icones flèches image précédente -->
+            <a href=" " name="previous-image"><i class="fas fa-chevron-right"></i></a><!-- icones flèches image suivante -->
+            <button class="close-dialog" name="close-dialog"></button>
+        </div>
+
+
+        <!-- partie formulaire -->
         <div class="bground">
             <div class="content">
                 <h1>Contactez-moi</h1>
-                <form action="">
-                    <label for="lastane">Prénom</label>
+                <form>
+                    <label for="lastname">Prénom</label>
                     <input 
                         type="text" 
                         id="lastname"
@@ -74,9 +68,9 @@
                     <button class="send">Envoyer</button>
                     <button class="close"><!-- icones --></button>
                 </form>
-
             </div>
         </div>
-    </main>
+    </main>    
+    <script src="./js/index.js" type="module"></script>   
   </body>
 </html>

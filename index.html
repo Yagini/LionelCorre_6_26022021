@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./style/style.css">
         <link rel="stylesheet" href="./style/reset.css">       
-        <link rel="stylesheet" href="./style/fa.css">
+        <link rel="stylesheet" href="./style/all.css">
         <title>FishEye Accueil</title>
     </head>
     <body>
@@ -44,94 +44,28 @@
                 </ul>     
             </nav>
         </header>
-        <main id="main" class="content">
+        <main class="content">
             <h1 class="title">Nos photographes</h1>
-            <section class="photographer">
-                <article class="photographer__card" id="mimi-keel">
-                    <a href="photographes.html" aria-label="Mimi Keel" class="photographer__link">
+            <section class="photographers">
+                
+                
+                <!--<article class="photographer__card">
+                    <a href="photographes.html" aria-label="Mimi Keel" class="photographer__link" id="243">
                         <div class="photographer__frame">
-                            <img src="./images/Sample Photos/Mimi/Portrait_Nora.jpg" alt="" class="photographer__portrait photographer__portrait--mimi">
+                            <img src="" alt="" class="photographer__portrait photographer__portrait--mimi" id="portrait">
                         </div>
-                        <h2 class="photographer__name">Mimi Keel</h2>
+                        <h2 class="photographer__name" id="name"></h2>
                     </a>
-                    <p class="photographer__city">London, UK</p>
-                    <p class="photographer__tagline">Voir le beau dans le quotidien</p>
-                    <p class="photographer__price">400€/jour</p>
-                    <a href="" aria-label="Tag" class="tag">#portrait</a>
-                    <a href="" aria-label="tag" class="tag">#events</a>
-                    <a href="" aria-label="tag" class="tag">#travel</a>
-                    <a href="" aria-label="tag" class="tag">#animals</a>
-                </article>
-                <article class="photographer__card" id="ellie-rose-wilkens">
-                    <a href="photographes.html" aria-label="Ellie-Rose Wilkens" class="photographer__link">
-                        <div class="photographer__frame">
-                            <img src="./images/Sample Photos/Ellie Rose/Architecture_Horseshoe.jpg" alt="" class="photographer__portrait photographer__portrait--ellie">
-                        </div>
-                        <h2 class="photographer__name">Ellie-Rose Wilkens</h2>
-                    </a>
-                    <p class="photographer__city">Paris, France</p>
-                    <p class="photographer__tagline">Travaille sur des compositions complexes</p>
-                    <p class="photographer__price">250€/jour</p>
-                    <a href="" aria-label="tag" class="tag">#sport</a>
-                    <a href="" aria-label="tag" class="tag">#architecture</a>                    
-                </article>
-                <article class="photographer__card" id="tracy-galindo">
-                    <a href="photographes.html" aria-label="Tracy Galindo" class="photographer__link">
-                        <div class="photographer__frame">
-                            <img src="./images/Sample Photos/Tracy/Fashion_Urban_Jungle.jpg" alt="" class="photographer__portrait photographer__portrait--tracy">
-                        </div>
-                        <h2 class="photographer__name">Tracy Galindo</h2>
-                    </a>
-                    <p class="photographer__city">Montreal, Canada</p>
-                    <p class="photographer__tagline">Photographe freelance</p>
-                    <p class="photographer__price">500€/jour</p>
-                    <a href="" aria-label="tag" class="tag">#art</a>
-                    <a href="" aria-label="tag" class="tag">#fashion</a>
-                    <a href="" aria-label="tag" class="tag">#events</a>                
-                </article>
-                <article class="photographer__card" id="nabeel-bradford">
-                    <a href="photographes.html" aria-label="Nabeel Bradford" class="photographer__link">
-                        <div class="photographer__frame">
-                            <img src="./images/Sample Photos/Nabeel/Travel_Outdoor_Baths.jpg" alt="" class="photographer__portrait photographer__portrait--nabeel">
-                        </div>
-                        <h2 class="photographer__name">Nabeel Bradford</h2>
-                    </a>
-                    <p class="photographer__city">Mexico City, Mexico</p>
-                    <p class="photographer__tagline">Je vais toujours de l'avant</p>
-                    <p class="photographer__price">350€/jour</p>
-                    <a href="" aria-label="tag" class="tag">#travel</a>
-                    <a href="" aria-label="tag" class="tag">#portraits</a>                
-                </article>
-                <article class="photographer__card" id="rhode-dubois">
-                    <a href="photographes.html" aria-label="Rhode Dubois" class="photographer__link">
-                        <div class="photographer__frame">
-                            <img src="./images/Sample Photos/Rhode/Fashion_Melody_Red_on_Stripes.jpg" alt="" class="photographer__portrait photographer__portrait--rhode">
-                        </div>
-                        <h2 class="photographer__name">Rhode Dubois</h2>
-                    </a>
-                    <p class="photographer__city">Barcelona, Spain</p>
-                    <p class="photographer__tagline">Créatrice de souvenirs</p>
-                    <p class="photographer__price">375€/jour</p>
-                    <a href="" aria-label="tag" class="tag">#sport</a>
-                    <a href="" aria-label="tag" class="tag">#fashion</a>
-                    <a href="" aria-label="tag" class="tag">#events</a>
-                    <a href="" aria-label="tag" class="tag">#animals</a>
-                </article>
-                <article class="photographer__card" id="marcel-nikolic">
-                    <a href="photographes.html" aria-label="Marcel Nikolic" class="photographer__link">
-                        <div class="photographer__frame">
-                            <img src="./images/Sample Photos/Marcel/Travel_Tower.jpg" alt="" class="photographer__portrait photographer__portrait--marcel">
-                        </div>
-                        <h2 class="photographer__name">Marcel Nikolic</h2>
-                    </a>
-                    <p class="photographer__city">Berlin, Germany</p>
-                    <p class="photographer__tagline">Toujours à la recherche de LA photo</p>
-                    <p class="photographer__price">300€/jour</p>
-                    <a href="" aria-label="tag" class="tag">#travel</a>
-                    <a href="" aria-label="tag" class="tag">#architecture</a>                
-                </article>
+                    <p class="photographer__city" id="city"></p>
+                    <p class="photographer__tagline" id="tagline"></p>
+                    <p class="photographer__price" id="price"></p>
+                    <a href="" aria-label="Tag" class="tag"></a>
+                    <a href="" aria-label="tag" class="tag"></a>
+                    <a href="" aria-label="tag" class="tag"></a>
+                    <a href="" aria-label="tag" class="tag"></a>
+                </article>-->
             </section>
-        </main>
-        <!--<script src="./scrypt.js"></script>-->
+        </main>        
+        <script src="./js/index.js" type="module"></script>        
     </body>
 </html>

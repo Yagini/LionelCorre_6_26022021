@@ -8,7 +8,7 @@ export const data = {
       tags: ["portrait", "events", "travel", "animals"],
       tagline: "Voir le beau dans le quotidien",
       price: 400,
-      portrait: "../images/Photos/Photographers ID Photos/MimiKeel.jpg",
+      portrait: "../images/Photos/Photographers_ID_Photos/MimiKeel.jpg",
       alt: "Mimi Keel portrait",
     },
     {

@@ -94,7 +94,7 @@ h1, h2 {
 }
 
 .photographers__portrait {      
-    position: relative;
+    position: relative;   
 }
 .photographers__portrait--mimi {
     width: 320px;
@@ -173,7 +173,8 @@ h1, h2 {
 /*===============================
 ==       Pages photographes   ==
 ===============================*/
-.bground {
+
+.modal__bground {
     display: none;
 }
 
@@ -208,7 +209,7 @@ h1, h2 {
     font-size: 14px;
 }
 
-.lightbox {
+.lightbox__bground {
     display: none;
 }
 

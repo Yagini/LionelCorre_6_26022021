@@ -9,67 +9,24 @@
     <link rel="stylesheet" href="./style/all.css">
     <title>FishEye Photographes</title>
   </head>
-  <body>    
-    <main class="photographer__main">
-        <header class="photographer__header" role="banner">
-            <a aria-label="FishEye" href="index.html">
-                <img src="./images/logo.svg" alt="Fisheye Home page"/>
-            </a>
-        </header>
+  <body>
+    <header class="photographer__header" role="banner">
+        <a aria-label="FishEye" href="index.html">
+            <img src="./images/logo.svg" alt="Fisheye Home page"/>
+        </a>
+    </header>    
+    <main class="photographer__main">        
         <!-- section photographe -->
-        <section class="photographers__block"></section>
-        <!-- section carousel -->
-        <section class="carousel__block"></section>   
-    
-        <!--section media--> 
-        <section class="portfolio__content" id="b-content"></section>       
-
         
+        <!-- section carousel -->           
+    
+        <!--section media-->         
 
-        <!-- Partie Lightbox (modale) --> <!-- ????? CAROUSEL (cf bootstrap) ???? -->
-        <div aria-label="image closeup view" class="lightbox">
-            <img src="./images/Photos/Mimi/Animals_Rainbow.jpg" alt="">
-            <h3>blabla</h3>
-            <a href=" " name="next-image"><i class="fas fa-chevron-left"></i></a><!-- icones flèches image précédente -->
-            <a href=" " name="previous-image"><i class="fas fa-chevron-right"></i></a><!-- icones flèches image suivante -->
-            <button class="close-dialog" name="close-dialog"></button>
-        </div>
-
+        <!-- Partie Lightbox --> 
 
         <!-- partie formulaire -->
-        <div class="bground">
-            <div class="content">
-                <h1>Contactez-moi</h1>
-                <form>
-                    <label for="lastname">Prénom</label>
-                    <input 
-                        type="text" 
-                        id="lastname"
-                    >
-                    <span class="error"></span>
-                    <label for="name">Nom</label>
-                    <input 
-                        type="text"
-                        id="name"
-                    >
-                    <span class="error"></span>
-                    <label for="email">Email</label>
-                    <input 
-                        type="email"
-                        id="email"
-                    >
-                    <span class="error"></span>
-                    <label for="message">Votre message</label>
-                    <input 
-                        type="text"
-                        id="message"
-                    >
-                    <span class="error"></span>
-                    <button class="send">Envoyer</button>
-                    <button class="close"><!-- icones --></button>
-                </form>
-            </div>
-        </div>
+        
+        <!-- partie Modal-->
     </main>    
     <script src="./js/index.js" type="module"></script>   
   </body>

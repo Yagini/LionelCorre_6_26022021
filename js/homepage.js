@@ -1,10 +1,11 @@
 import {data} from "./data.js"
 
-const photographers = data.photographers;
-console.log(photographers);
-const photographersSection = document.querySelector(".photographers");
+const homepage = data.photographers;
+const homepageSection = document.querySelector(".photographers");
 
-photographers.forEach(photographer => {
+export { homepage as fisheyesHomepage };
+
+homepage.forEach(photographer => {
     const photographersCard = document.createElement("article");
     photographersCard.classList.add("photographers__card");
     
@@ -16,14 +17,16 @@ photographers.forEach(photographer => {
     photographersFrame.classList.add("photographers__frame");
 
     const photographersLink = document.createElement("a");
-    photographersLink.href = "../photographes.html";
+    photographersLink.href = "../photographers.html";
     photographersLink.classList.add("photographers__link");
+    photographersLink.setAttribute("id", photographer.id);
 
     const photographersName = document.createElement("h2");
     photographersName.classList.add("photographers__name");
     photographersName.textContent = photographer.name;
     
     const photographersPhoto = document.createElement("img");
+    photographersName.classList.add("photographers__portait")
     photographersPhoto.src = photographer.portrait;
     
     const photographersPrice = document.createElement("p");
@@ -36,13 +39,10 @@ photographers.forEach(photographer => {
 
     const photographersTags = document.createElement("ul");
     photographersTags.classList.add("tag");
-    photographers.forEach ( tag => {
-        const tags = document.createElement("li");                
-        tags.textContent = tag.tags;
-        photographersTags.appendChild(tags);       
-    })
+    photographersTags.textContent = photographer.tags;
+   
 
-    photographersSection.appendChild(photographersCard);
+    homepageSection.appendChild(photographersCard);
     
     photographersCard.appendChild(photographersLink);
     photographersCard.appendChild(photographersCity);
@@ -53,5 +53,8 @@ photographers.forEach(photographer => {
     photographersLink.appendChild(photographersFrame);
     
     photographersFrame.appendChild(photographersPhoto);
-    photographersFrame.appendChild(photographersName);
+
+    photographersLink.appendChild(photographersName);
+        
 });
+

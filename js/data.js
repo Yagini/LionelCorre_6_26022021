@@ -8,7 +8,7 @@ export const data = {
       tags: ["portrait", "events", "travel", "animals"],
       tagline: "Voir le beau dans le quotidien",
       price: 400,
-      portrait: "../images/Photos/Photographers_ID_Photos/MimiKeel.jpg",
+      portrait: "MimiKeel.jpg",
       alt: "Mimi Keel portrait",
     },
     {
@@ -19,7 +19,7 @@ export const data = {
       tags: ["sports", "architecture"],
       tagline: "Capturer des compositions complexes",
       price: 250,
-      portrait: "../images/Photos/Photographers_ID_Photos/EllieRoseWilkens.jpg",
+      portrait: "EllieRoseWilkens.jpg",
       alt: "Ellie-Rose Wilkens portrait",
     },
     {
@@ -30,7 +30,7 @@ export const data = {
       tags: ["art", "fashion", "events"],
       tagline: "Photographe freelance",
       price: 500,
-      portrait: "../images/Photos/Photographers_ID_Photos/TracyGalindo.jpg",
+      portrait: "TracyGalindo.jpg",
       alt: "Tracy Galindo portrait",
     },
     {
@@ -41,7 +41,7 @@ export const data = {
       tags: ["travel", "portrait"],
       tagline: "Toujours aller de l'avant",
       price: 350,
-      portrait: "../images/Photos/Photographers_ID_Photos/NabeelBrandford.jpg",
+      portrait: "NabeelBrandford.jpg",
       alt: "Nabeel Bradford portrait",
     },
     {
@@ -52,7 +52,7 @@ export const data = {
       tags: ["sport", "fashion", "events", "animals"],
       tagline: "Je crée des souvenirs",
       price: 275,
-      portrait: "../images/Photos/Photographers_ID_Photos/RhodeDubois.jpg",
+      portrait: "RhodeDubois.jpg",
       alt: "Rhode Dubois portrait",
     },
     {
@@ -63,7 +63,7 @@ export const data = {
       tags: ["travel", "architecture"],
       tagline: "Toujours à la recherche de LA photo",
       price: 300,
-      portrait: "../images/Photos/Photographers_ID_Photos/MarcelNikolic.jpg",
+      portrait: "MarcelNikolic.jpg",
       alt: "Marcel Nikolic portrait",
     },
   ],

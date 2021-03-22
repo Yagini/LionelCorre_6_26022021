@@ -1,271 +1,356 @@
-import {data} from "./data.js"
+import { data } from "./data.js";
 
-const photographers = data.photographers;
-const medias = data.media;
-const photographersMain = document.querySelector(".photographer__main");
+const createPhotographers = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get("id");
+  const idNumber = parseInt(id, 10);
 
-export { photographers as photographersfunctions};
+  const photographers = data.photographers;
 
-photographers.forEach(photographer => {
+  const photographer = photographers.find((photographer) => photographer.id === idNumber);
 
-    //section photographers introduction
-    const photographersSection = document.createElement("section");
-    photographersSection.classList.add("photographers__block");
+  const medias = data.media;
+  const photographersMain = document.querySelector(".photographers__main");
 
-    const photographersInfo = document.createElement("article");
-    photographersInfo.classList.add("photographers__info");
-    
-    const photographersName = document.createElement("h2");
-    photographersName.classList.add("photographers__name");
-    photographersName.textContent = photographer.name;
-    
-    const photographersCity = document.createElement("p");
-    photographersCity.classList.add("photographers__city", "photographers__city--page");
-    photographersCity.textContent = photographer.city;
+  //photographers insert
+  addPhotographerPresentation(photographer, photographersMain);
 
-    const photographersTagline = document.createElement("p");
-    photographersTagline.classList.add("photographers__tagline", "photographers__tagline--page");
-    photographersTagline.textContent = photographer.tagline;
-    
-    const photographersTags = document.createElement("ul");
-    photographersTags.classList.add("tag");
-    photographersTags.textContent = photographer.tags;
-    
-    const photographersFrame = document.createElement("div");
-    photographersFrame.classList.add("photographers__frame", "photographers__frame--page");
+  // section DropDownMenu
+  addDropdownMenu(photographersMain);
 
-    const photographersPortrait = document.createElement("img");
-    photographersPortrait.src = photographer.portrait;
-    photographersPortrait.alt = photographer.alt;
+  // section album
+  addPortofolio(medias, photographersMain, photographer);
 
-    const contactButton = document.createElement("button");
-    contactButton.classList.add = "button";
-    contactButton.textContent = "Contactez-moi";
-    
-    const photographersPriceInsert = document.createElement("div");
-    photographersPriceInsert.classList.add("photographers__insert");
+  // section lightbox
+  addLightbox(medias, photographersMain);
 
-    const photographersPrice = document.createElement("p");
-    photographersPrice.classList.add("photographer__price");
-    photographersPrice.textContent = photographer.price;
+  // section modal
+  addModal(photographersMain);
+};
 
+const addPhotographerPresentation = (photographer, photographersMain) => {
+  const photographersSection = document.createElement("section");
+  photographersSection.classList.add("photographers__block");
 
-    photographersSection.appendChild(photographersInfo);    
-    photographersInfo.appendChild(photographersName);
-    photographersInfo.appendChild(photographersCity);
-    photographersInfo.appendChild(photographersTagline);    
-    photographersInfo.appendChild(photographersTags);
-    
-    photographersSection.appendChild(photographersFrame);
-    photographersFrame.appendChild(photographersPortrait);
-    
-    photographersSection.appendChild(contactButton);
+  const photographersInfo = document.createElement("article");
+  photographersInfo.classList.add("photographers__info");
 
-    photographersPriceInsert.appendChild(photographersPrice);
+  const photographersName = document.createElement("h2");
+  photographersName.classList.add("photographers__name", "photographers__name--page");
+  photographersName.textContent = photographer.name;
 
-    photographersMain.appendChild(photographersPriceInsert);
-    photographersMain.appendChild(photographersSection);
+  const photographersCity = document.createElement("p");
+  photographersCity.classList.add("photographers__city", "photographers__city--page");
+  photographersCity.textContent = photographer.city;
 
-    // section carousel 
-    const photographersDropDownMenu = document.createElement("section");
-    photographersDropDownMenu.classList.add("Drop-down-menu__block");
+  const photographersTagline = document.createElement("p");
+  photographersTagline.classList.add("photographers__tagline", "photographers__tagline--page");
+  photographersTagline.textContent = photographer.tagline;
 
-    const DropDownMenuLabel = document.createElement("label");
-    DropDownMenuLabel.setAttribute("for", "order");
-    DropDownMenuLabel.classList.add("drop-down-menu__label");
-    DropDownMenuLabel.textContent= "Trier par";    
+  const photographersTags = document.createElement("ul");
+  photographersTags.classList.add("photographers__tag");
 
-    const DropDownMenuSelect = document.createElement("select");
-    DropDownMenuSelect.setAttribute("name", "orderby");
-    DropDownMenuSelect.setAttribute("id", "order");
+  photographer.tags.forEach((tag) => {
+    const tagList = document.createElement("li");
+    tagList.classList.add("tag__li");
+    tagList.textContent = tag;
+    photographersTags.appendChild(tagList);
+  });
 
-    const DropDownMenuOptionPopularity = document.createElement("option");
-    DropDownMenuOptionPopularity.setAttribute("value", "Popularity")
-    DropDownMenuOptionPopularity.textContent = "Popularité";
+  const photographersFrame = document.createElement("div");
+  photographersFrame.classList.add("photographers__frame", "photographers__frame--page");
 
-    const DropDownMenuOptionDate = document.createElement("option");
-    DropDownMenuOptionDate.setAttribute("value", "Date")
-    DropDownMenuOptionDate.textContent = "Date";
+  const photographersPortrait = document.createElement("img");
+  photographersPortrait.classList.add("photographers__portrait", "photographers__portrait--page");
+  photographersPortrait.src = "./images/Photos/Photographers_ID_Photos/" + photographer.portrait;
+  photographersPortrait.alt = photographer.alt;
 
-    const DropDownMenuOptionTitle = document.createElement("option");
-    DropDownMenuOptionTitle.setAttribute("value", "Title")
-    DropDownMenuOptionTitle.textContent = "Titre";
+  const contactButton = document.createElement("button");
+  contactButton.classList.add("button__contact");
+  contactButton.textContent = "Contactez-moi";
 
-    photographersDropDownMenu.appendChild(DropDownMenuLabel);    
-    photographersDropDownMenu.appendChild(DropDownMenuSelect);
-    DropDownMenuSelect.appendChild(DropDownMenuOptionPopularity);
-    DropDownMenuSelect.appendChild(DropDownMenuOptionDate);
-    DropDownMenuSelect.appendChild(DropDownMenuOptionTitle);
-    photographersMain.appendChild(photographersDropDownMenu);
+  const photographersPriceInsert = document.createElement("div");
+  photographersPriceInsert.classList.add("photographers__insert");
 
-    // section media
-    const portfolioContent = document.createElement("section");
-    portfolioContent.classList.add("portfolio__content");   
+  const photographersLikes = document.createElement("p");
+  photographersLikes.classList.add("photographers__likes");
+  photographersLikes.textContent = "125240 ";
+
+  const photographersIcon = document.createElement("i");
+  photographersIcon.classList.add("fas", "fa-heart", "photographers__icon");
+
+  const photographersPrice = document.createElement("p");
+  photographersPrice.classList.add("photographers__price");
+  photographersPrice.textContent = photographer.price + "€ / jour";
+
+  photographersSection.appendChild(photographersInfo);
+  photographersInfo.appendChild(photographersName);
+  photographersInfo.appendChild(photographersCity);
+  photographersInfo.appendChild(photographersTagline);
+  photographersInfo.appendChild(photographersTags);
+
+  photographersSection.appendChild(photographersFrame);
+  photographersFrame.appendChild(photographersPortrait);
+
+  photographersPriceInsert.appendChild(photographersLikes);
+  photographersPriceInsert.appendChild(photographersIcon);
+  photographersPriceInsert.appendChild(photographersPrice);
+
+  photographersMain.appendChild(contactButton);
+  photographersMain.appendChild(photographersSection);
+  photographersMain.appendChild(photographersPriceInsert);
+};
+
+const addDropdownMenu = (photographersMain) => {
+  const photographersDropDownMenu = document.createElement("section");
+  photographersDropDownMenu.classList.add("dropdownmenu__block");
+
+  const DropDownMenuLabel = document.createElement("label");
+  DropDownMenuLabel.setAttribute("for", "order");
+  DropDownMenuLabel.classList.add("dropdownmenu__label");
+  DropDownMenuLabel.textContent = "Trier par";
+
+  const DropDownMenuSelect = document.createElement("select");
+  DropDownMenuSelect.setAttribute("name", "orderby");
+  DropDownMenuSelect.setAttribute("id", "order");
+
+  const DropDownMenuOptionPopularity = document.createElement("option");
+  DropDownMenuOptionPopularity.setAttribute("value", "Popularity");
+  DropDownMenuOptionPopularity.textContent = "Popularité";
+
+  const DropDownMenuOptionDate = document.createElement("option");
+  DropDownMenuOptionDate.setAttribute("value", "Date");
+  DropDownMenuOptionDate.textContent = "Date";
+
+  const DropDownMenuOptionTitle = document.createElement("option");
+  DropDownMenuOptionTitle.setAttribute("value", "Title");
+  DropDownMenuOptionTitle.textContent = "Titre";
+
+  photographersDropDownMenu.appendChild(DropDownMenuLabel);
+  photographersDropDownMenu.appendChild(DropDownMenuSelect);
+  DropDownMenuSelect.appendChild(DropDownMenuOptionPopularity);
+  DropDownMenuSelect.appendChild(DropDownMenuOptionDate);
+  DropDownMenuSelect.appendChild(DropDownMenuOptionTitle);
+  photographersMain.appendChild(photographersDropDownMenu);
+};
+
+const addPortofolio = (medias, photographersMain, photographer) => {
+  const portfolioContent = document.createElement("section");
+  portfolioContent.classList.add("portfolio__content");
+
+  const mediaFilter = medias.filter((media) => media.photographerId === photographer.id);
+  mediaFilter.forEach((media) => {
+    const portfolioBlock = document.createElement("div");
+    portfolioBlock.classList.add("portfolio__block");
 
     const portfolioPhoto = document.createElement("img");
-    portfolioPhoto.classList.add("portfolio__photo");
-    portfolioPhoto.src = medias.image;
-    portfolioPhoto.alt = medias.alt;
+    portfolioPhoto.classList.add("portfolio__media");
+    portfolioPhoto.src = "./images/Photos/" + photographer.id + "/" + media.image;
+    portfolioPhoto.alt = media.alt;
+    portfolioPhoto.setAttribute("id", media.id);
+
+    const portfolioVideo = document.createElement("video");
+    portfolioVideo.classList.add("portfolio__media");
+    portfolioVideo.src = "./images/Photos/" + photographer.id + "/" + media.video;
+    portfolioVideo.setAttribute("controls", "");
+    portfolioVideo.alt = media.alt;
+    console.log(portfolioVideo)
 
     const portfolioInfo = document.createElement("div");
     portfolioInfo.classList.add("portfolio__info");
 
     const portfolioTitle = document.createElement("h3");
     portfolioTitle.classList.add("portfolio__title");
-    portfolioTitle.textContent = medias.alt;
+    portfolioTitle.textContent = media.alt;
 
     const portfolioPrice = document.createElement("p");
     portfolioPrice.classList.add("portfolio__price");
-    portfolioPrice.textContent = medias.price;
+    portfolioPrice.textContent = media.price + " €";
 
     const portfolioLikes = document.createElement("p");
     portfolioLikes.classList.add("portfolio__likes");
-    portfolioLikes.textContent = medias.likes;
+    portfolioLikes.textContent = media.likes;
 
     const portfolioIcon = document.createElement("i");
-    portfolioIcon.classList.add("fas", "fa-heart", "portfolio__icon"); 
+    portfolioIcon.classList.add("fas", "fa-heart", "portfolio__icon");
 
-    portfolioContent.appendChild(portfolioPhoto);
-    portfolioContent.appendChild(portfolioInfo);
     portfolioInfo.appendChild(portfolioTitle);
     portfolioInfo.appendChild(portfolioPrice);
     portfolioInfo.appendChild(portfolioLikes);
     portfolioInfo.appendChild(portfolioIcon);
 
-    photographersMain.appendChild(portfolioContent);
-    
-    // section lightbox
-    const lightboxBground = document.createElement("div");
-    lightboxBground.classList.add("lightbox__bground");
+    portfolioBlock.appendChild(portfolioPhoto);
+    portfolioBlock.appendChild(portfolioInfo);
 
-    const lightboxContent = document.createElement("div");
-    lightboxContent.classList.add("lightbox__content");
+    portfolioContent.appendChild(portfolioBlock);
+  });
 
-    const lightboxImg = document.createElement("img");
-    lightboxImg.classList.add("lightbox__img");
-    lightboxImg.src = medias.image;
-    lightboxImg.alt = medias.alt;
+  photographersMain.appendChild(portfolioContent);
+};
 
-    const lightboxTitle = document.createElement("h3");
-    lightboxTitle.classList.add("lightbox__title");
-    lightboxTitle.textContent = medias.alt;
+//lightbox
 
-    const lightboxCheveronRight = document.createElement("i");
-    lightboxCheveronRight.classList.add("fas", "fa-chevron-right", "lightbox__chevron-r"); 
+const addLightbox = (medias, photographersMain) => {  
+ 
+  const lightboxBground = document.createElement("div");
+  lightboxBground.classList.add("lightbox__bground");
 
-    const lightboxCheveronLeft = document.createElement("i");
-    lightboxCheveronLeft.classList.add("fas", "fa-chevron-left", "lightbox__chevron-l");
+  const lightboxContent = document.createElement("div");
+  lightboxContent.classList.add("lightbox__content");
 
-    const lightboxClose = document.createElement("i");
-    lightboxClose.classList.add("lightbox__close");
+  const lightboxImg = document.createElement("img");
+  lightboxImg.classList.add("lightbox__img");
+  lightboxImg.src = medias.image;
+  lightboxImg.alt = medias.alt;
 
-    const lightboxCloseButton = document.createElement("button");
-    lightboxCloseButton.classList.add("close");
+  const lightboxTitle = document.createElement("h3");
+  lightboxTitle.classList.add("lightbox__title");
+  lightboxTitle.textContent = medias.alt;
 
-    const lightboxCloseIcon = document.createElement("i");
-    lightboxCloseIcon.classList.add("close__icon");
+  const lightboxCheveronRight = document.createElement("i");
+  lightboxCheveronRight.classList.add("fas", "fa-chevron-right", "lightbox__icon", "lightbox__chevron-r");
 
-    lightboxContent.appendChild(lightboxImg);
-    lightboxContent.appendChild(lightboxTitle);    
-    lightboxContent.appendChild(lightboxCheveronRight);
-    lightboxContent.appendChild(lightboxCheveronLeft);
-    lightboxContent.appendChild(lightboxCloseButton);
+  const lightboxCheveronLeft = document.createElement("i");
+  lightboxCheveronLeft.classList.add("fas", "fa-chevron-left", "lightbox__icon", "lightbox__chevron-l");
 
-    lightboxCloseButton.appendChild(lightboxCloseIcon);
+  const lightboxClose = document.createElement("i");
+  lightboxClose.classList.add("lightbox__icon", "lightbox__close");
 
-    lightboxBground.appendChild(lightboxContent);
+  const lightboxCloseButton = document.createElement("button");
+  lightboxCloseButton.classList.add("close");
 
-    photographersMain.appendChild(lightboxBground);
+  const lightboxCloseIcon = document.createElement("i");
+  lightboxCloseIcon.classList.add("fas", "fa-times", "lightbox__icon", "close__icon");
 
-    //section modale
-    const modalBground = document.createElement("div");
-    modalBground.classList.add("modal__bground");
+  lightboxContent.appendChild(lightboxImg);
+  lightboxContent.appendChild(lightboxTitle); 
 
-    const modalContent = document.createElement("div");
-    modalContent.classList.add("modal__content");
+  lightboxCloseButton.appendChild(lightboxCloseIcon);
 
-    const modalTitle = document.createElement("h1");
-    modalTitle.classList.add("modal__title");
+  lightboxBground.appendChild(lightboxCheveronLeft);
+  lightboxBground.appendChild(lightboxCheveronRight);
+  lightboxBground.appendChild(lightboxCloseButton);
+  lightboxBground.appendChild(lightboxContent);
 
-    const modalForm = document.createElement("form");
-    modalForm.classList.add("modal__form");
+  photographersMain.appendChild(lightboxBground);
+};
+const getImgId = document.getElementById(medias.id);
 
-    const modalFirstname = document.createElement("label");
-    modalFirstname.setAttribute("for", "firstname");
-    modalFirstname.classList.add("modal__firstname");
-    modalFirstname.textContent = "Prénom";
+function openLightbox() {
+  document.querySelector(".lightbox__bground").style.display = "block";
+}
 
-    const modalInputFirstname = document.createElement("input");
-    modalInputFirstname.setAttribute("id", "firstname");
-    modalInputFirstname.type = "text";    
+function closeLightbox() {
+  document.querySelector(".close").style.display = "none";  
+}
 
-    const modalLastname = document.createElement("label");
-    modalLastname.setAttribute("for", "Lastname");
-    modalLastname.classList.add("modal__lastname");
-    modalLastname.textContent = "Nom";
+const firstImg = 1;
+showImg(firstImg);
 
-    const modalInputLastname = document.createElement("input");
-    modalInputLastname.setAttribute("id", "lastname");
-    modalInputLastname.type = "text";
+function nextImg(n) {
+  showImg( firstImg += n);
+}
 
-    const modalEmail = document.createElement("label");
-    modalEmail.setAttribute("for", "Email");
-    modalEmail.classList.add("modal__email");
-    modalEmail.textContent = "Email";
+function currentImg(n) {
+  showImg(firstImg = n);
+}
 
-    const modalInputEmail = document.createElement("input");
-    modalInputEmail.setAttribute("id", "email");
-    modalInputEmail.type = "text";
+showImg.forEach( () => {
+  https://www.w3schools.com/howto/howto_js_lightbox.asp
+})
 
-    const modalMessage = document.createElement("label");
-    modalMessage.setAttribute("for", "Message");
-    modalMessage.classList.add("modal__message");
-    modalMessage.textContent = "Message";
+// form
 
-    const modalInputMessage = document.createElement("textarea");
-    modalInputMessage.setAttribute("id", "message");
-    modalInputMessage.setAttribute ("type", "text");
-    modalInputMessage.rows = 5;
-    modalInputMessage.cols = 35;
+const addModal = (photographersMain) => {
 
-    const modalSendButton = document.createElement("button");
-    modalSendButton.classList.add("modal__send-button");
-    modalSendButton.textContent = "Envoyer";
+  const modalBground = document.createElement("div");
+  modalBground.classList.add("modal__bground");
 
-    const modalCloseButton = document.createElement("button");
-    modalCloseButton.classList.add("close");
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal__content");
 
-    const modalCloseIcon = document.createElement("i");
-    modalCloseIcon.classList.add("close-icon");
+  const modalTitle = document.createElement("h1");
+  modalTitle.classList.add("modal__title");
 
-    const modalSpanError = document.createElement("span");
-    modalSpanError.classList.add("Modal__error");
-    const cloneSpanError = modalSpanError.cloneNode(true);
+  const modalForm = document.createElement("form");
+  modalForm.classList.add("modal__form");
 
+  const modalFirstname = document.createElement("label");
+  modalFirstname.setAttribute("for", "firstname");
+  modalFirstname.classList.add("modal__firstname");
+  modalFirstname.textContent = "Prénom";
 
-    modalForm.appendChild(modalFirstname);
-    modalForm.appendChild(modalInputFirstname);
-    modalInputFirstname.insertAdjacentElement("afterend", cloneSpanError);
-    modalForm.appendChild(modalLastname);
-    modalForm.appendChild(modalInputLastname);
-    modalInputLastname.insertAdjacentElement("afterend", cloneSpanError);
-    modalForm.appendChild(modalEmail);
-    modalForm.appendChild(modalInputEmail);
-    modalInputEmail.insertAdjacentElement("afterend", cloneSpanError);
-    modalForm.appendChild(modalMessage);
-    modalForm.appendChild(modalInputMessage);
-    modalInputMessage.insertAdjacentElement("afterend", cloneSpanError);
-    modalForm.appendChild(modalSendButton)
-    modalSendButton.insertAdjacentElement("afterend", cloneSpanError);
-    modalForm.appendChild(modalCloseButton);    
+  const modalInputFirstname = document.createElement("input");
+  modalInputFirstname.setAttribute("id", "firstname");
+  modalInputFirstname.type = "text";
 
-    modalCloseButton.appendChild(modalCloseIcon);    
+  const modalLastname = document.createElement("label");
+  modalLastname.setAttribute("for", "Lastname");
+  modalLastname.classList.add("modal__lastname");
+  modalLastname.textContent = "Nom";
 
-    modalContent.appendChild(modalTitle);
-    modalContent.appendChild(modalForm);
+  const modalInputLastname = document.createElement("input");
+  modalInputLastname.setAttribute("id", "lastname");
+  modalInputLastname.type = "text";
 
-    modalBground.appendChild(modalContent);
+  const modalEmail = document.createElement("label");
+  modalEmail.setAttribute("for", "Email");
+  modalEmail.classList.add("modal__email");
+  modalEmail.textContent = "Email";
 
-    photographersMain.appendChild(modalBground);
+  const modalInputEmail = document.createElement("input");
+  modalInputEmail.setAttribute("id", "email");
+  modalInputEmail.type = "text";
 
-});
+  const modalMessage = document.createElement("label");
+  modalMessage.setAttribute("for", "Message");
+  modalMessage.classList.add("modal__message");
+  modalMessage.textContent = "Message";
+
+  const modalInputMessage = document.createElement("textarea");
+  modalInputMessage.setAttribute("id", "message");
+  modalInputMessage.setAttribute("type", "text");
+  modalInputMessage.rows = 5;
+  modalInputMessage.cols = 35;
+
+  const modalSendButton = document.createElement("button");
+  modalSendButton.classList.add("modal__send-button");
+  modalSendButton.textContent = "Envoyer";
+
+  const modalCloseButton = document.createElement("button");
+  modalCloseButton.classList.add("close");
+
+  const modalCloseIcon = document.createElement("i");
+  modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
+
+  const modalSpanError = document.createElement("span");
+  modalSpanError.classList.add("Modal__error");
+  const cloneSpanError = modalSpanError.cloneNode(true);
+
+  modalForm.appendChild(modalFirstname);
+  modalForm.appendChild(modalInputFirstname);
+  modalInputFirstname.insertAdjacentElement("afterend", cloneSpanError);
+  modalForm.appendChild(modalLastname);
+  modalForm.appendChild(modalInputLastname);
+  modalInputLastname.insertAdjacentElement("afterend", cloneSpanError);
+  modalForm.appendChild(modalEmail);
+  modalForm.appendChild(modalInputEmail);
+  modalInputEmail.insertAdjacentElement("afterend", cloneSpanError);
+  modalForm.appendChild(modalMessage);
+  modalForm.appendChild(modalInputMessage);
+  modalInputMessage.insertAdjacentElement("afterend", cloneSpanError);
+  modalForm.appendChild(modalSendButton);
+  modalSendButton.insertAdjacentElement("afterend", cloneSpanError);
+  modalForm.appendChild(modalCloseButton);
+
+  modalCloseButton.appendChild(modalCloseIcon);
+
+  modalContent.appendChild(modalTitle);
+  modalContent.appendChild(modalForm);
+
+  modalBground.appendChild(modalContent);
+
+  photographersMain.appendChild(modalBground);
+};
+export { createPhotographers };

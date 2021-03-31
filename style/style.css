@@ -175,10 +175,6 @@ h2 {
   height: 40px;
 }
 
-.modal__bground {
-  display: none;
-}
-
 .photographers__block {  
   display: flex;
   align-items: center;
@@ -333,7 +329,130 @@ h2 {
   }
 }
 
+/*===============================
+==           modal            ==
+===============================*/
+.form__data {
+  width: 100%;
+}
+.modal__bground {
+  background-color: #ffff;
+  display: none;  
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;  
+}
 
+.modal__content{
+  align-items: center;  
+  background-color: var(--orange-color);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 15px;  
+  position: relative;
+  margin-top: 100px; 
+}
+
+.modal__error {
+  font-size: 1.2em;
+  color: #000000;
+}
+
+.modal__form {
+  display: flex;
+  flex-wrap: wrap;  
+}
+
+.modal__title {
+  font-size: 2.25em;  
+  width: 75%;  
+}
+
+.modal__input {    
+  height: 50px;
+  font-size: 1.5em;
+}
+
+.modal__send-button { 
+  background-color: var(--red-color); 
+  border-radius: 10px;
+  color: #ffff;
+  font-size: 1.125em;
+  padding: 5px 50px;
+  margin-top: 25px; 
+  margin-left: 95px;   
+}
+
+.modal__close {
+  color: #ffff;
+  font-size: 1.5em;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+textarea {
+  width: 100%;
+  height: 150px;
+  font-family: "DMsans-regular";
+  font-size: 1.7em;
+}
+.modal__content, .modal__form, .modal__input {
+  width: 100%;
+}
+
+.modal__input, .modal__input--textarea {
+  border-radius: 10px;
+}
+
+.modal__firstname, .modal__lastname, .modal__email, .modal__message {  
+  font-size: 1.5em;
+  margin-top: 15px; 
+  width: 100%; 
+}
+
+.validation__bground {
+  background-color: #ffff;
+  display: none;  
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.validation__close {  
+  top: 110px;
+}  
+
+.validation__content {  
+  align-items: center;  
+  background-color: var(--orange-color);
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  height: 300px;
+  margin: 100px auto;
+  padding: 25px 50px;  
+  position: relative;
+  width: 100%;    
+}
+
+.validation__send-button {
+  margin-left: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.validation__text {
+  font-size: 1.5em;
+  color: #000000;
+  text-align: center;  
+}
 /*===============================
 ==       Queries              ==
 ===============================*/
@@ -373,8 +492,9 @@ h2 {
 
   .photographers__block {
     background-color: var(--light-gray-color);
-    padding: 50px 60px;
     justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 50px 60px;    
   }
 
   .photographers__card {
@@ -387,9 +507,13 @@ h2 {
     margin-top: 40px;
   }
 
+  .photographers__info {
+    width: 40%;
+  }
+
   .photographers__block, .photographers__header {
     margin-right: auto;
-    margin-left: auto;    
+    margin-left: auto;        
   } 
 
   .photographers__city--page, .photographers__tagline--page {
@@ -402,147 +526,200 @@ h2 {
     margin-top: 10px;
   }
 
+  /*===============================
+  ==       Pages photographes   ==
+  ===============================*/
+
+  .button__contact {
+    cursor: pointer;
+    display: initial;
+    left: 400px;
+    padding: 20px 10px;
+    position: relative;
+    top: 155px;
+    transition: 0.2s;
+  }
+
+  .button__contact:hover {
+    background-color: var(--orange-color);
+    color: #000000;
+  }
+
+  .logo {
+    height: auto;    
+  }
+
+  .photographers__name--page {
+    font-size: 4em;
+  }
+
+  .photographers__frame--page {
+    height: 200px;
+    width: 200px; 
+  }
+
+  .photographers__insert {
+    align-items: center;  
+    background-color: var(--orange-color);
+    border-radius: 5px;
+    bottom: 0;
+    display: flex;  
+    justify-content: center;
+    padding: 15px 20px;
+    position: fixed;  
+    right: 40px;
+    width: 340px;
+  }
+  .photographers__likes {
+    margin-right: 5px;
+  }
+  .photographers__price--page {
+    color: #000000;  
+    flex: 1;
+    font-size: 1.5em;  
+    text-align: end;
+    text-decoration: underline;
+  }
+
+  .photographers__icon, .photographers__likes {
+    font-size: 1.5em;
+  }
+
+  .photographers__portrait--page {
+    height: 200px;
+    width: 200px;
+  }
+
+  .portfolio__block {
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: 0.2s;
+  }
+  .portfolio__block:hover {
+    opacity: 0.7;
+  }
+
+  .portfolio__content {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 60px;
+    margin-bottom: 100px;  
+  }
+
+  .portfolio__icon {
+    margin-left: 5px;
+  }
+
+  .portfolio__title,
+  .portfolio__price,
+  .portfolio__likes,
+  .portfolio__icon {  
+    font-size: 1.1em;
+  }
+
 /*===============================
-==       Pages photographes   ==
+==       dropdown menu        ==
 ===============================*/
-
-.button__contact {
-  cursor: pointer;
-  display: initial;
-  left: 400px;
-  padding: 20px 10px;
-  position: relative;
-  top: 155px;
-  transition: 0.2s;
-}
-
-.button__contact:hover {
-  background-color: var(--orange-color);
-  color: #000000;
-}
 
 .dropdownmenu__block {
-  display: initial;
+  display: initial;  
 }
 
-.logo {
-  height: auto;    
+.dropdownmenu__label {
+  font-size: 1.125em;
+  margin-right: 25px;
 }
 
-.photographers__name--page {
-  font-size: 4em;
+#order  {
+  background-color: var(--red-color);
+  border-radius: 10px;
+  color: #ffff;
+  font-size: 1.125em;
+  padding: 10px;  
 }
+  /*===============================
+  ==          lightbox          ==
+  ===============================*/
+  .close__icon {  
+    right: 85px;
+    top: 90px;  
+  }
 
-.photographers__frame--page {
-  height: 200px;
-  width: 200px; 
-}
+  .lightbox__bground {
+    padding-top: 60px;
+  }
 
-.photographers__insert {
-  align-items: center;  
-  background-color: var(--orange-color);
-  border-radius: 5px;
-  bottom: 0;
-  display: flex;  
-  justify-content: center;
-  padding: 15px 20px;
-  position: fixed;  
-  right: 40px;
-  width: 340px;
-}
-.photographers__likes {
-  margin-right: 5px;
-}
-.photographers__price {
-  color: #000000;  
-  flex: 1;  
-  text-align: end;
-  text-decoration: underline;
-}
+  .lightbox__chevron-l {  
+    left: 85px;  
+  }
 
-.photographers__icon, .photographers__likes, .photographers__price {
-  font-size: 1.5em;
-}
+  .lightbox__chevron-r {  
+    right: 85px;  
+  }
 
-.photographers__portrait--page {
-  height: 200px;
-  width: 200px;
-}
+  .lightbox__content{
+    margin: auto;
+  }
 
-.portfolio__block {
-  cursor: pointer;
-  margin-bottom: 30px;
-  transition: 0.2s;
-}
-.portfolio__block:hover {
-  opacity: 0.7;
-}
+  .lightbox__img {
+    width: 768px;
+    height: 660px;  
+  }
 
-.portfolio__content {
-  width: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 60px;
-  margin-bottom: 100px;  
-}
+  .lightbox__title {
+    margin-top: 20px;  
+    font-size: 1.33em;
+    line-height: 1.72em;
+    width: 500px;
+  }
 
-.portfolio__icon {
-  margin-left: 5px;
-}
+  .lightbox__icon:hover,
+  .lightbox__icon:focus {
+    color: var(--orange-color);
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-.portfolio__title,
-.portfolio__price,
-.portfolio__likes,
-.portfolio__icon {  
-  font-size: 1.1em;
-}
+  .close__icon, .lightbox__chevron-l, .lightbox__chevron-r  {
+    font-size: 2.5em;
+  }
 
-/*===============================
-==          lightbox          ==
-===============================*/
-.close__icon {  
-  right: 85px;
-  top: 90px;  
-}
+  /*===============================
+  ==          modale            ==
+  ===============================*/
 
-.lightbox__bground {
-  padding-top: 60px;
-}
+  .modal__content {
+    width: 724px;
+    margin-left: 150px;
+  }
 
-.lightbox__chevron-l {  
-  left: 85px;  
-}
+  .modal__send-button {         
+    margin-left: 0;
+    padding: 25px 50px;
+      
+  }
 
-.lightbox__chevron-r {  
-  right: 85px;  
-}
+  .validation__close {
+    
+    right: 130px;
+    font-size: 2em;
+  } 
 
-.lightbox__content{
-  margin: auto;
-}
+  .validation__content {
+    width: 80%;
+  }
 
-.lightbox__img {
-  width: 768px;
-  height: 660px;  
-}
+  .validation__send-button {
+    margin-left: 290px;
+    font-size: 1.8em;
+  }
 
-.lightbox__title {
-  margin-top: 20px;  
-  font-size: 1.33em;
-  line-height: 1.72em;
-  width: 500px;
-}
-
-.lightbox__icon:hover,
-.lightbox__icon:focus {
-  color: var(--orange-color);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.close__icon, .lightbox__chevron-l, .lightbox__chevron-r  {
-  font-size: 2.5em;
+  .validation__text {
+    width: 100%;
+    font-size: 2em;
+  }
 }
 
 @media only screen and (min-width: 1399px) {
@@ -589,7 +766,35 @@ h2 {
     font-size: 2.25em;
     line-height: 18px;
     margin-top: 10px;    
-  }  
+  }
+
+  /*===============================
+  ==          modal             ==
+  ===============================*/
+  .modal__content {
+    width: 670px;
+    margin-left: 385px;
+  }
+  
+  .validation__close {
+    right: 380px;
+    font-size: 2.2em;
+  }
+
+  .validation__content {
+    width: 50%;
+  }
+  
+  .validation__send-button {
+    margin-left: 215px;
+    font-size: 2em;
+  }
+
+  .validation__text {
+    width: 100%;
+    font-size: 2.2em;
+  }
+  
 }
 
 @media only screen and (min-width: 1920px) {
@@ -618,6 +823,19 @@ h2 {
     height: 1150px;  
   } 
 
+  .modal__content {
+    width: 670px;
+    margin-left: 625px;
+  }
+  
+  .validation__close {
+    right: 220px;    
+  }
+  
+  .validation__send-button {
+    margin-left: 590px;    
+  }  
+
 }
 
 @media only screen and (min-width: 2300px) {
@@ -637,5 +855,17 @@ h2 {
     margin-left: 170px;
   }
 
+  .modal__content {
+    width: 670px;
+    margin-left: 945px;
+  } 
+
+  .validation__close {
+    right: 660px;    
+  }
+  
+  .validation__send-button {
+    margin-left: 500px;    
+  }  
 
 }

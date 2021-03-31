@@ -1,6 +1,4 @@
-const createModal = () => {
-  const photographersMain = document.querySelector(".photographer__main");
-
+const createModal = (photographersMain, photographer) => {
   const modalBground = document.createElement("div");
   modalBground.classList.add("modal__bground");
 
@@ -9,9 +7,13 @@ const createModal = () => {
 
   const modalTitle = document.createElement("h1");
   modalTitle.classList.add("modal__title");
+  modalTitle.textContent = "Contactez-moi " + photographer.name;
 
   const modalForm = document.createElement("form");
   modalForm.classList.add("modal__form");
+
+  const modalContentFirst = document.createElement("div");
+  modalContentFirst.classList.add("form__data");
 
   const modalFirstname = document.createElement("label");
   modalFirstname.setAttribute("for", "firstname");
@@ -20,7 +22,15 @@ const createModal = () => {
 
   const modalInputFirstname = document.createElement("input");
   modalInputFirstname.setAttribute("id", "firstname");
+  modalInputFirstname.classList.add("modal__input");
   modalInputFirstname.type = "text";
+
+  const modalSpanErrorFirst = document.createElement("span");
+  modalSpanErrorFirst.classList.add("modal__error");
+  modalSpanErrorFirst.setAttribute("id", "modal__error--first");
+
+  const modalContentName = document.createElement("div");
+  modalContentName.classList.add("form__data");
 
   const modalLastname = document.createElement("label");
   modalLastname.setAttribute("for", "Lastname");
@@ -29,16 +39,32 @@ const createModal = () => {
 
   const modalInputLastname = document.createElement("input");
   modalInputLastname.setAttribute("id", "lastname");
+  modalInputLastname.classList.add("modal__input");
   modalInputLastname.type = "text";
 
+  const modalSpanErrorName = document.createElement("span");
+  modalSpanErrorName.classList.add("modal__error");
+  modalSpanErrorName.setAttribute("id", "modal__error--last");
+
+  const modalContentEmail = document.createElement("div");
+  modalContentEmail.classList.add("form__data");
+
   const modalEmail = document.createElement("label");
-  modalEmail.setAttribute("for", "Email");
+  modalEmail.setAttribute("for", "email");
   modalEmail.classList.add("modal__email");
   modalEmail.textContent = "Email";
 
   const modalInputEmail = document.createElement("input");
   modalInputEmail.setAttribute("id", "email");
-  modalInputEmail.type = "text";
+  modalInputEmail.classList.add("modal__input");
+  modalInputEmail.type = "email";
+
+  const modalSpanErrorEmail = document.createElement("span");
+  modalSpanErrorEmail.classList.add("modal__error");
+  modalSpanErrorEmail.setAttribute("id", "modal__error--email");
+
+  const modalContentMessage = document.createElement("div");
+  modalContentMessage.classList.add("form__data");
 
   const modalMessage = document.createElement("label");
   modalMessage.setAttribute("for", "Message");
@@ -48,47 +74,150 @@ const createModal = () => {
   const modalInputMessage = document.createElement("textarea");
   modalInputMessage.setAttribute("id", "message");
   modalInputMessage.setAttribute("type", "text");
-  modalInputMessage.rows = 5;
-  modalInputMessage.cols = 35;
+  modalInputMessage.classList.add("modal__input--textarea");
+
+  const modalSpanErrorMessage = document.createElement("span");
+  modalSpanErrorMessage.classList.add("modal__error");
+  modalSpanErrorMessage.setAttribute("id", "modal__error--message");
 
   const modalSendButton = document.createElement("button");
   modalSendButton.classList.add("modal__send-button");
+  modalSendButton.setAttribute("type", "submit");
   modalSendButton.textContent = "Envoyer";
 
   const modalCloseButton = document.createElement("button");
-  modalCloseButton.classList.add("close");
+  modalCloseButton.classList.add("modal__close");
 
   const modalCloseIcon = document.createElement("i");
-  modalCloseIcon.classList.add("close-icon");
+  modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
 
   const modalSpanError = document.createElement("span");
-  modalSpanError.classList.add("Modal__error");
-  const cloneSpanError = modalSpanError.cloneNode(true);
+  modalSpanError.classList.add("modal__error");
+  modalSpanError.setAttribute("id", "modal__error");
 
-  modalForm.appendChild(modalFirstname);
-  modalForm.appendChild(modalInputFirstname);
-  modalInputFirstname.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalLastname);
-  modalForm.appendChild(modalInputLastname);
-  modalInputLastname.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalEmail);
-  modalForm.appendChild(modalInputEmail);
-  modalInputEmail.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalMessage);
-  modalForm.appendChild(modalInputMessage);
-  modalInputMessage.insertAdjacentElement("afterend", cloneSpanError);
+  modalContentFirst.appendChild(modalFirstname);
+  modalContentFirst.appendChild(modalInputFirstname);
+  modalContentFirst.appendChild(modalSpanErrorFirst);
+  modalContentName.appendChild(modalLastname);
+  modalContentName.appendChild(modalInputLastname);
+  modalContentName.appendChild(modalSpanErrorName);
+  modalContentEmail.appendChild(modalEmail);
+  modalContentEmail.appendChild(modalInputEmail);
+  modalContentEmail.appendChild(modalSpanErrorEmail);
+  modalContentMessage.appendChild(modalMessage);
+  modalContentMessage.appendChild(modalInputMessage);
+  modalContentMessage.appendChild(modalSpanErrorMessage);
+
+  modalForm.appendChild(modalContentFirst);
+  modalForm.appendChild(modalContentName);
+  modalForm.appendChild(modalContentEmail);
+  modalForm.appendChild(modalContentMessage);
   modalForm.appendChild(modalSendButton);
-  modalSendButton.insertAdjacentElement("afterend", cloneSpanError);
   modalForm.appendChild(modalCloseButton);
 
   modalCloseButton.appendChild(modalCloseIcon);
 
   modalContent.appendChild(modalTitle);
   modalContent.appendChild(modalForm);
-
   modalBground.appendChild(modalContent);
 
   photographersMain.appendChild(modalBground);
+
+  createValidationModale(photographersMain);
+  addModalFunction();
+};
+
+const createValidationModale = (photographersMain) => {
+  const validationModaleBground = document.createElement("div");
+  validationModaleBground.classList.add("validation__bground");
+  validationModaleBground.setAttribute("id", "validation__form");
+  const validationModaleContent = document.createElement("div");
+  validationModaleContent.classList.add("validation__content");
+  const validationModaleText = document.createElement("p");
+  validationModaleText.classList.add("validation__text");
+  validationModaleText.textContent = "Merci, je vous contacte dès que possible"
+  const validationModalSendButton = document.createElement("button");
+  validationModalSendButton.classList.add("modal__send-button", "validation__send-button");
+  validationModalSendButton.textContent = "Valider";
+  const validationModalCloseButton = document.createElement("button");
+  validationModalCloseButton.classList.add("modal__close", "validation__close");
+  const validationModalCloseIcon = document.createElement("i");
+  validationModalCloseIcon.classList.add("fas", "fa-times", "close-icon");
+
+  validationModaleContent.appendChild(validationModaleText);
+  validationModaleContent.appendChild(validationModalSendButton);
+  validationModalCloseButton.appendChild(validationModalCloseIcon);
+
+  validationModaleBground.appendChild(validationModaleContent);
+  validationModaleBground.appendChild(validationModalCloseButton);
+  
+
+  photographersMain.appendChild(validationModaleBground);
+};
+
+const addModalFunction = () => {
+  const modalBg = document.querySelector(".modal__bground");
+  const modalBtn = document.querySelectorAll(".button__contact");
+  const modalCross = document.querySelectorAll(".close");
+  const validationModalBg = document.querySelector(".validation__bground");
+  const validationModalCross = document.querySelector(".validation__close");
+
+  function launchModal() {
+    modalBg.style.display = "block";
+  }
+  modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+  function closeModal() {
+    modalBg.style.display = "none";         
+  }
+  modalCross.forEach((btn) => btn.addEventListener("click", closeModal));
+
+  function closeValidationModal() {
+    validationModalBg.style.display = "none";    
+  }
+  validationModalCross.addEventListener("click", closeValidationModal);
+
+  function validate(e) {
+    e.preventDefault()
+    document.getElementById("modal__error--first").innerHTML = "";
+    document.getElementById("modal__error--last").innerHTML = "";
+    document.getElementById("modal__error--email").innerHTML = "";
+    document.getElementById("modal__error--message").innerHTML = "";
+
+    let valid = true;
+
+    if (document.getElementById("firstname").value.length < 2) {
+      document.getElementById("modal__error--first").innerHTML =
+        "Veuillez entrer 2 caractères minimum pour le champ prénom";
+      valid = false;
+    }
+    if (document.getElementById("lastname").value.length < 2) {
+      document.getElementById("modal__error--last").innerHTML =
+        "Veuillez entrer 2 caractères minimum pour le champ nom";
+      valid = false;
+    }
+    if (document.getElementById("email").value === "") {
+      document.getElementById("modal__error--email").innerHTML = "Veuillez entrer un e-mail valide";
+      valid = false;
+    }
+    if (document.getElementById("message").value.length < 30) {
+      document.getElementById("modal__error--message").innerHTML =
+        "Veuillez entrer un message avec 30 caractères minimun";
+      valid = false;
+    }
+    if (valid === true) {            
+      validation(e);
+    }   
+    
+  }
+  const validationForm = document.getElementById("validation__form");
+    function validation(e) {
+      closeModal();     
+      validationForm.style.display = "block";
+      e.preventDefault();
+    }
+  document.querySelector(".modal__send-button").addEventListener("click", validate); 
+  document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);
 };
 
 export { createModal };

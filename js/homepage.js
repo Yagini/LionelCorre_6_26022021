@@ -5,8 +5,8 @@ const createHomepage = () => {
 const photographersData = data.photographers;
 const homepageSection = document.querySelector(".photographers");
 
-photographersData.forEach((photographer) => {
-  
+photographersData.forEach((photographer) => { 
+
   const photographersCard = document.createElement("article");
   photographersCard.classList.add("photographers__card");
 

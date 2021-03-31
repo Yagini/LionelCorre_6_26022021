@@ -1,27 +1,27 @@
-import { data } from "./data.js";
-
-const createLightbox = () => {
-  const medias = data.media; // modification il faut call juste les médias qui concernent lightbox 
-
-  const photographersMain = document.querySelector(".photographer__main");
-
-  const lightboxBground = document.createElement("div");
-  lightboxBground.classList.add("lightbox__bground");
+const createLightbox = (portfolioSrc, medias) => {
+  const lightboxBground = document.querySelector(".lightbox__bground");
+  lightboxBground.innerHTML = "";
 
   const lightboxContent = document.createElement("div");
   lightboxContent.classList.add("lightbox__content");
 
   const lightboxImg = document.createElement("img");
   lightboxImg.classList.add("lightbox__img");
-  lightboxImg.src = medias.image;
+  lightboxImg.src = portfolioSrc;
   lightboxImg.alt = medias.alt;
 
   const lightboxTitle = document.createElement("h3");
   lightboxTitle.classList.add("lightbox__title");
   lightboxTitle.textContent = medias.alt;
 
+  const nextImg = document.createElement("a");
+  nextImg.classList.add("nextImg");
+
   const lightboxCheveronRight = document.createElement("i");
   lightboxCheveronRight.classList.add("fas", "fa-chevron-right", "lightbox__icon", "lightbox__chevron-r");
+
+  const prevImg = document.createElement("a");
+  prevImg.classList.add("prevImg");
 
   const lightboxCheveronLeft = document.createElement("i");
   lightboxCheveronLeft.classList.add("fas", "fa-chevron-left", "lightbox__icon", "lightbox__chevron-l");
@@ -33,19 +33,47 @@ const createLightbox = () => {
   lightboxCloseButton.classList.add("close");
 
   const lightboxCloseIcon = document.createElement("i");
-  lightboxCloseIcon.classList.add("close__icon");
+  lightboxCloseIcon.classList.add("fas", "fa-times", "lightbox__icon", "close__icon");
 
   lightboxContent.appendChild(lightboxImg);
   lightboxContent.appendChild(lightboxTitle);
-  lightboxContent.appendChild(lightboxCheveronRight);
-  lightboxContent.appendChild(lightboxCheveronLeft);
-  lightboxContent.appendChild(lightboxCloseButton);
 
   lightboxCloseButton.appendChild(lightboxCloseIcon);
 
-  lightboxBground.appendChild(lightboxContent);
+  nextImg.appendChild(lightboxCheveronRight);
+  prevImg.appendChild(lightboxCheveronLeft);
 
-  photographersMain.appendChild(lightboxBground);
+  lightboxBground.appendChild(nextImg);
+  lightboxBground.appendChild(prevImg);
+  lightboxBground.appendChild(lightboxCloseButton);
+  lightboxBground.appendChild(lightboxContent); 
+  
+
+
+  //1- recup en premier l'index qui correspond à la source dans le tableau 0
+  // tableau = media qui contient toutes les images savoir portfolio ou elle ce trouve dans le tableau
+
+  //2- index +1 pour récupèrer les images suivantes
+
+  //3- avec le new index récup le
+  
+  
+
 };
 
-export { createLightbox };
+
+
+
+function launchLightbox (portfolioSrc, medias) {
+  createLightbox(portfolioSrc, medias);   
+  const lightbox = document.querySelector(".lightbox__bground");
+  lightbox.style.display = "block";  
+  //todo lightboxCloseBtn call index.js 1x
+  const lightboxCloseBtn = document.querySelector(".close");
+  function closeLightbox() {
+    lightbox.style.display = "none";
+  }
+  lightboxCloseBtn.addEventListener("click", closeLightbox);
+}
+
+export { launchLightbox };

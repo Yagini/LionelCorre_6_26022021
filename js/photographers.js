@@ -1,4 +1,6 @@
 import { data } from "./data.js";
+import { createModal } from "./modal.js";
+import { launchLightbox } from "./lightbox.js";
 
 const createPhotographers = () => {
   const queryString = window.location.search;
@@ -20,13 +22,10 @@ const createPhotographers = () => {
   addDropdownMenu(photographersMain);
 
   // section album
-  addPortofolio(medias, photographersMain, photographer);
-
-  // section lightbox
-  addLightbox(medias, photographersMain);
+  addPortofolio(medias, photographersMain, photographer); 
 
   // section modal
-  addModal(photographersMain);
+  createModal(photographersMain, photographer);
 };
 
 const addPhotographerPresentation = (photographer, photographersMain) => {
@@ -81,7 +80,7 @@ const addPhotographerPresentation = (photographer, photographersMain) => {
   photographersIcon.classList.add("fas", "fa-heart", "photographers__icon");
 
   const photographersPrice = document.createElement("p");
-  photographersPrice.classList.add("photographers__price");
+  photographersPrice.classList.add("photographers__price--page");
   photographersPrice.textContent = photographer.price + "€ / jour";
 
   photographersSection.appendChild(photographersInfo);
@@ -144,19 +143,6 @@ const addPortofolio = (medias, photographersMain, photographer) => {
     const portfolioBlock = document.createElement("div");
     portfolioBlock.classList.add("portfolio__block");
 
-    const portfolioPhoto = document.createElement("img");
-    portfolioPhoto.classList.add("portfolio__media");
-    portfolioPhoto.src = "./images/Photos/" + photographer.id + "/" + media.image;
-    portfolioPhoto.alt = media.alt;
-    portfolioPhoto.setAttribute("id", media.id);
-
-    const portfolioVideo = document.createElement("video");
-    portfolioVideo.classList.add("portfolio__media");
-    portfolioVideo.src = "./images/Photos/" + photographer.id + "/" + media.video;
-    portfolioVideo.setAttribute("controls", "");
-    portfolioVideo.alt = media.alt;
-    console.log(portfolioVideo)
-
     const portfolioInfo = document.createElement("div");
     portfolioInfo.classList.add("portfolio__info");
 
@@ -178,179 +164,65 @@ const addPortofolio = (medias, photographersMain, photographer) => {
     portfolioInfo.appendChild(portfolioTitle);
     portfolioInfo.appendChild(portfolioPrice);
     portfolioInfo.appendChild(portfolioLikes);
-    portfolioInfo.appendChild(portfolioIcon);
+    portfolioInfo.appendChild(portfolioIcon);    
 
-    portfolioBlock.appendChild(portfolioPhoto);
+    if (media.image === undefined) {
+      const portfolioVideo = document.createElement("video");      
+      portfolioVideo.classList.add("portfolio__media");
+      portfolioVideo.controls = true;
+      portfolioVideo.alt = media.alt;
+      const portfolioVideoSource = document.createElement("source");
+      const portFolioVideoSrc = "./images/Photos/" + photographer.id + "/" + media.video;
+      const videoIndex = medias.findIndex((img) => img.video === media.video);
+      portfolioVideoSource.src = portFolioVideoSrc;
+      portfolioVideoSource.type = "video/mp4";
+      portfolioVideo.appendChild(portfolioVideoSource);
+      portfolioBlock.appendChild(portfolioVideo);
+      portfolioVideo.addEventListener("click", function () {
+        launchLightbox(portfolioVideoSrc, medias, videoIndex);        
+      });
+
+    } else {
+      const portfolioPhoto = document.createElement("img");
+      const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.image;                 
+      portfolioPhoto.classList.add("portfolio__media");
+      portfolioPhoto.src = portfolioSrc;
+      portfolioPhoto.alt = media.alt;      
+      portfolioBlock.appendChild(portfolioPhoto);
+      portfolioPhoto.addEventListener("click", function () {
+        launchLightbox(portfolioSrc, medias);
+        lightboxAction(imgIndex);
+        console.log(imgIndex)                              
+      });            
+    };  
+  
     portfolioBlock.appendChild(portfolioInfo);
-
     portfolioContent.appendChild(portfolioBlock);
+
+    const imgIndex = medias.findIndex((img) => img.image === media.image);        
+    
+    const lightboxAction = (imgIndex) => {
+      let currentImgIndex = imgIndex;
+      let image = document.getElementsByClassName("portfolio__media");     
+      const imgPlus = () => {
+        if (currentImgIndex < currentImgIndex.length + 1) {          
+          currentImgIndex ++          
+          image ++
+        }
+      }
+      document.querySelector(".nextImg").addEventListener("click", imgPlus); 
+      
+      const imgLess = () => {
+        if (currentImgIndex === currentImgIndex.length - 1) {
+          currentImgIndex --
+        }
+      }
+      document.querySelector(".prevImg").addEventListener("click", imgLess);
+      
+    }
   });
 
   photographersMain.appendChild(portfolioContent);
 };
 
-//lightbox
-
-const addLightbox = (medias, photographersMain) => {  
- 
-  const lightboxBground = document.createElement("div");
-  lightboxBground.classList.add("lightbox__bground");
-
-  const lightboxContent = document.createElement("div");
-  lightboxContent.classList.add("lightbox__content");
-
-  const lightboxImg = document.createElement("img");
-  lightboxImg.classList.add("lightbox__img");
-  lightboxImg.src = medias.image;
-  lightboxImg.alt = medias.alt;
-
-  const lightboxTitle = document.createElement("h3");
-  lightboxTitle.classList.add("lightbox__title");
-  lightboxTitle.textContent = medias.alt;
-
-  const lightboxCheveronRight = document.createElement("i");
-  lightboxCheveronRight.classList.add("fas", "fa-chevron-right", "lightbox__icon", "lightbox__chevron-r");
-
-  const lightboxCheveronLeft = document.createElement("i");
-  lightboxCheveronLeft.classList.add("fas", "fa-chevron-left", "lightbox__icon", "lightbox__chevron-l");
-
-  const lightboxClose = document.createElement("i");
-  lightboxClose.classList.add("lightbox__icon", "lightbox__close");
-
-  const lightboxCloseButton = document.createElement("button");
-  lightboxCloseButton.classList.add("close");
-
-  const lightboxCloseIcon = document.createElement("i");
-  lightboxCloseIcon.classList.add("fas", "fa-times", "lightbox__icon", "close__icon");
-
-  lightboxContent.appendChild(lightboxImg);
-  lightboxContent.appendChild(lightboxTitle); 
-
-  lightboxCloseButton.appendChild(lightboxCloseIcon);
-
-  lightboxBground.appendChild(lightboxCheveronLeft);
-  lightboxBground.appendChild(lightboxCheveronRight);
-  lightboxBground.appendChild(lightboxCloseButton);
-  lightboxBground.appendChild(lightboxContent);
-
-  photographersMain.appendChild(lightboxBground);
-};
-const getImgId = document.getElementById(medias.id);
-
-function openLightbox() {
-  document.querySelector(".lightbox__bground").style.display = "block";
-}
-
-function closeLightbox() {
-  document.querySelector(".close").style.display = "none";  
-}
-
-const firstImg = 1;
-showImg(firstImg);
-
-function nextImg(n) {
-  showImg( firstImg += n);
-}
-
-function currentImg(n) {
-  showImg(firstImg = n);
-}
-
-showImg.forEach( () => {
-  https://www.w3schools.com/howto/howto_js_lightbox.asp
-})
-
-// form
-
-const addModal = (photographersMain) => {
-
-  const modalBground = document.createElement("div");
-  modalBground.classList.add("modal__bground");
-
-  const modalContent = document.createElement("div");
-  modalContent.classList.add("modal__content");
-
-  const modalTitle = document.createElement("h1");
-  modalTitle.classList.add("modal__title");
-
-  const modalForm = document.createElement("form");
-  modalForm.classList.add("modal__form");
-
-  const modalFirstname = document.createElement("label");
-  modalFirstname.setAttribute("for", "firstname");
-  modalFirstname.classList.add("modal__firstname");
-  modalFirstname.textContent = "Prénom";
-
-  const modalInputFirstname = document.createElement("input");
-  modalInputFirstname.setAttribute("id", "firstname");
-  modalInputFirstname.type = "text";
-
-  const modalLastname = document.createElement("label");
-  modalLastname.setAttribute("for", "Lastname");
-  modalLastname.classList.add("modal__lastname");
-  modalLastname.textContent = "Nom";
-
-  const modalInputLastname = document.createElement("input");
-  modalInputLastname.setAttribute("id", "lastname");
-  modalInputLastname.type = "text";
-
-  const modalEmail = document.createElement("label");
-  modalEmail.setAttribute("for", "Email");
-  modalEmail.classList.add("modal__email");
-  modalEmail.textContent = "Email";
-
-  const modalInputEmail = document.createElement("input");
-  modalInputEmail.setAttribute("id", "email");
-  modalInputEmail.type = "text";
-
-  const modalMessage = document.createElement("label");
-  modalMessage.setAttribute("for", "Message");
-  modalMessage.classList.add("modal__message");
-  modalMessage.textContent = "Message";
-
-  const modalInputMessage = document.createElement("textarea");
-  modalInputMessage.setAttribute("id", "message");
-  modalInputMessage.setAttribute("type", "text");
-  modalInputMessage.rows = 5;
-  modalInputMessage.cols = 35;
-
-  const modalSendButton = document.createElement("button");
-  modalSendButton.classList.add("modal__send-button");
-  modalSendButton.textContent = "Envoyer";
-
-  const modalCloseButton = document.createElement("button");
-  modalCloseButton.classList.add("close");
-
-  const modalCloseIcon = document.createElement("i");
-  modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
-
-  const modalSpanError = document.createElement("span");
-  modalSpanError.classList.add("Modal__error");
-  const cloneSpanError = modalSpanError.cloneNode(true);
-
-  modalForm.appendChild(modalFirstname);
-  modalForm.appendChild(modalInputFirstname);
-  modalInputFirstname.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalLastname);
-  modalForm.appendChild(modalInputLastname);
-  modalInputLastname.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalEmail);
-  modalForm.appendChild(modalInputEmail);
-  modalInputEmail.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalMessage);
-  modalForm.appendChild(modalInputMessage);
-  modalInputMessage.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalSendButton);
-  modalSendButton.insertAdjacentElement("afterend", cloneSpanError);
-  modalForm.appendChild(modalCloseButton);
-
-  modalCloseButton.appendChild(modalCloseIcon);
-
-  modalContent.appendChild(modalTitle);
-  modalContent.appendChild(modalForm);
-
-  modalBground.appendChild(modalContent);
-
-  photographersMain.appendChild(modalBground);
-};
 export { createPhotographers };

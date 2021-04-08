@@ -158,7 +158,7 @@ const createValidationModale = (photographersMain) => {
 const addModalFunction = () => {
   const modalBg = document.querySelector(".modal__bground");
   const modalBtn = document.querySelectorAll(".button__contact");
-  const modalCross = document.querySelectorAll(".close");
+  const modalCross = document.querySelector(".modal__close");
   const validationModalBg = document.querySelector(".validation__bground");
   const validationModalCross = document.querySelector(".validation__close");
 
@@ -170,7 +170,7 @@ const addModalFunction = () => {
   function closeModal() {
     modalBg.style.display = "none";         
   }
-  modalCross.forEach((btn) => btn.addEventListener("click", closeModal));
+  modalCross.addEventListener("click", closeModal);
 
   function closeValidationModal() {
     validationModalBg.style.display = "none";    
@@ -213,7 +213,7 @@ const addModalFunction = () => {
   const validationForm = document.getElementById("validation__form");
     function validation(e) {
       closeModal();     
-      validationForm.style.display = "block";
+      validationForm.style.display = "block";      
       e.preventDefault();
     }
   document.querySelector(".modal__send-button").addEventListener("click", validate); 

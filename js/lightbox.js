@@ -1,18 +1,42 @@
-const createLightbox = (portfolioSrc, medias) => {
+let currentImgIndex = -1;
+let currentMedias = [];
+
+const createLightbox = (portfolioSrc, medias, media, photographerId) => {
   const lightboxBground = document.querySelector(".lightbox__bground");
   lightboxBground.innerHTML = "";
 
   const lightboxContent = document.createElement("div");
-  lightboxContent.classList.add("lightbox__content");
+  lightboxContent.classList.add("lightbox__content"); 
 
-  const lightboxImg = document.createElement("img");
-  lightboxImg.classList.add("lightbox__img");
-  lightboxImg.src = portfolioSrc;
-  lightboxImg.alt = medias.alt;
+  //if (media.image === undefined) {    
+    const lightboxVideo = document.createElement("video");
+    lightboxVideo.classList.add("lightbox__video");    
+    lightboxVideo.alt = medias.alt;
+    lightboxVideo.controls = true;
+    lightboxVideo.style.display = "none"; 
+    const lightboxVideoSrc = document.createElement("source");    
+    lightboxVideoSrc.src = portfolioSrc;
+    lightboxVideoSrc.type = "video/mp4";
+    lightboxVideo.appendChild(lightboxVideoSrc);   
+    lightboxContent.appendChild(lightboxVideo);
+  //} else {
+    const lightboxImg = document.createElement("img");
+    lightboxImg.classList.add("lightbox__img");    
+    lightboxImg.src = portfolioSrc;
+    lightboxImg.alt = medias.alt;
+    lightboxImg.style.display = "none";
+    lightboxContent.appendChild(lightboxImg);
+  //}
 
+  if (portfolioSrc.includes("jpg")) {
+    lightboxImg.style.display = "block";
+  } else {
+    lightboxVideo.style.display = "block";
+  }
+ 
   const lightboxTitle = document.createElement("h3");
   lightboxTitle.classList.add("lightbox__title");
-  lightboxTitle.textContent = medias.alt;
+  lightboxTitle.textContent = media.alt;
 
   const nextImg = document.createElement("a");
   nextImg.classList.add("nextImg");
@@ -34,8 +58,7 @@ const createLightbox = (portfolioSrc, medias) => {
 
   const lightboxCloseIcon = document.createElement("i");
   lightboxCloseIcon.classList.add("fas", "fa-times", "lightbox__icon", "close__icon");
-
-  lightboxContent.appendChild(lightboxImg);
+ 
   lightboxContent.appendChild(lightboxTitle);
 
   lightboxCloseButton.appendChild(lightboxCloseIcon);
@@ -46,34 +69,85 @@ const createLightbox = (portfolioSrc, medias) => {
   lightboxBground.appendChild(nextImg);
   lightboxBground.appendChild(prevImg);
   lightboxBground.appendChild(lightboxCloseButton);
-  lightboxBground.appendChild(lightboxContent); 
-  
+  lightboxBground.appendChild(lightboxContent);
 
+  const imgIndex = medias.findIndex((img) => img.image === media.image);  
+  currentImgIndex = imgIndex;
+  currentMedias = medias;
 
-  //1- recup en premier l'index qui correspond à la source dans le tableau 0
-  // tableau = media qui contient toutes les images savoir portfolio ou elle ce trouve dans le tableau
-
-  //2- index +1 pour récupèrer les images suivantes
-
-  //3- avec le new index récup le
-  
-  
-
+  if (
+    document.querySelector(".nextImg").addEventListener("click", function () {
+      imgPlus(photographerId);
+    })
+  );
+  if (
+    document.querySelector(".prevImg").addEventListener("click", function () {
+      imgLess(photographerId, medias);
+    })
+  );
 };
 
-
-
-
-function launchLightbox (portfolioSrc, medias) {
-  createLightbox(portfolioSrc, medias);   
-  const lightbox = document.querySelector(".lightbox__bground");
-  lightbox.style.display = "block";  
-  //todo lightboxCloseBtn call index.js 1x
-  const lightboxCloseBtn = document.querySelector(".close");
-  function closeLightbox() {
-    lightbox.style.display = "none";
+const imgPlus = (photographerId) => {
+  //const lightboxContent =  document.querySelector(".lightbox__content");
+  //lightboxContent.innerHTML = "";  
+  if ( currentImgIndex === currentMedias.length - 1 ) {
+    currentImgIndex = 0;
+  } else {    
+    currentImgIndex = currentImgIndex + 1;
+  }  
+  const img = currentMedias[currentImgIndex];  
+  const currentImg = document.querySelector(".lightbox__img");
+  const currentVideo = document.querySelector(".lightbox__video");
+  const currentVideoSource = document.querySelector(".lightbox__video source") ;
+  const currentImgAlt = document.querySelector(".lightbox__title");
+  currentImgAlt.textContent = img.alt;  
+  if (img.image !== undefined) {
+    currentImg.src = "./images/Photos/" + photographerId + "/" + img.image;
+    currentImg.style.display = "block";
+    currentVideo.style.display = "none";    
+  } else {
+    currentVideoSource.src = "./images/Photos/" + photographerId + "/" + img.video;    
+    currentImg.style.display = "none";
+    currentVideo.style.display = "block";
   }
+};
+
+const imgLess = (photographerId) => {
+  if ( currentImgIndex === 0) {
+    currentImgIndex = currentMedias.length - 1;
+  } else {    
+    currentImgIndex = currentImgIndex - 1;
+  }   
+  const img = currentMedias[currentImgIndex];
+  const currentImg = document.querySelector(".lightbox__img");
+  const currentVideo = document.querySelector(".lightbox__video");
+  const currentVideoSource = document.querySelector(".lightbox__video source") ;
+  const currentImgAlt = document.querySelector(".lightbox__title");
+  currentImgAlt.textContent = img.alt;     
+  if (img.image !== undefined) {
+    currentImg.src = "./images/Photos/" + photographerId + "/" + img.image;
+    currentImg.style.display = "block";
+    currentVideo.style.display = "none";    
+  } else {
+    currentVideoSource.src = "./images/Photos/" + photographerId + "/" + img.video;    
+    currentImg.style.display = "none";
+    currentVideo.style.display = "block";
+  }
+};
+
+function launchLightbox(portfolioSrc, medias, media, photographerId) {
+  createLightbox(portfolioSrc, medias, media, photographerId);
+  
+  const lightbox = document.querySelector(".lightbox__bground");
+  lightbox.style.display = "block";
+
+  const lightboxCloseBtn = document.querySelector(".close");
+
   lightboxCloseBtn.addEventListener("click", closeLightbox);
 }
 
+function closeLightbox() {
+  const lightbox = document.querySelector(".lightbox__bground");
+  lightbox.style.display = "none";
+}
 export { launchLightbox };

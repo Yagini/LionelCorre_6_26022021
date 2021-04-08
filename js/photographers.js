@@ -1,6 +1,8 @@
 import { data } from "./data.js";
 import { createModal } from "./modal.js";
 import { launchLightbox } from "./lightbox.js";
+//import { addfilters } from "./filters.js";
+//import { addLikesInteractions } from "./likes.js";
 
 const createPhotographers = () => {
   const queryString = window.location.search;
@@ -11,24 +13,29 @@ const createPhotographers = () => {
   const photographers = data.photographers;
 
   const photographer = photographers.find((photographer) => photographer.id === idNumber);
-
   const medias = data.media;
+  const mediaFilter = medias.filter((media) => media.photographerId === photographer.id);
   const photographersMain = document.querySelector(".photographers__main");
 
   //photographers insert
-  addPhotographerPresentation(photographer, photographersMain);
+  addPhotographerPresentation(photographer, photographersMain, mediaFilter);
 
   // section DropDownMenu
   addDropdownMenu(photographersMain);
 
   // section album
-  addPortofolio(medias, photographersMain, photographer); 
+  // export pour créer le nouveau tableau
+  addPortfolio(photographersMain, photographer, mediaFilter);
 
   // section modal
   createModal(photographersMain, photographer);
+
+  //addfilters(mediaFilter);
+
+  //addLikesInteractions();
 };
 
-const addPhotographerPresentation = (photographer, photographersMain) => {
+const addPhotographerPresentation = (photographer, photographersMain, mediaFilter) => {
   const photographersSection = document.createElement("section");
   photographersSection.classList.add("photographers__block");
 
@@ -74,7 +81,8 @@ const addPhotographerPresentation = (photographer, photographersMain) => {
 
   const photographersLikes = document.createElement("p");
   photographersLikes.classList.add("photographers__likes");
-  photographersLikes.textContent = "125240 ";
+  photographersLikes.setAttribute("id", "total__likes");
+  photographersLikes.innerHTML = mediaFilter.likes;
 
   const photographersIcon = document.createElement("i");
   photographersIcon.classList.add("fas", "fa-heart", "photographers__icon");
@@ -116,14 +124,17 @@ const addDropdownMenu = (photographersMain) => {
 
   const DropDownMenuOptionPopularity = document.createElement("option");
   DropDownMenuOptionPopularity.setAttribute("value", "Popularity");
+  DropDownMenuOptionPopularity.classList.add("dropdPopularity");
   DropDownMenuOptionPopularity.textContent = "Popularité";
 
   const DropDownMenuOptionDate = document.createElement("option");
   DropDownMenuOptionDate.setAttribute("value", "Date");
+  DropDownMenuOptionDate.classList.add("dropdDate");
   DropDownMenuOptionDate.textContent = "Date";
 
   const DropDownMenuOptionTitle = document.createElement("option");
   DropDownMenuOptionTitle.setAttribute("value", "Title");
+  DropDownMenuOptionTitle.classList.add("dropdTitle");
   DropDownMenuOptionTitle.textContent = "Titre";
 
   photographersDropDownMenu.appendChild(DropDownMenuLabel);
@@ -134,11 +145,10 @@ const addDropdownMenu = (photographersMain) => {
   photographersMain.appendChild(photographersDropDownMenu);
 };
 
-const addPortofolio = (medias, photographersMain, photographer) => {
+const addPortfolio = (photographersMain, photographer, mediaFilter) => {
   const portfolioContent = document.createElement("section");
   portfolioContent.classList.add("portfolio__content");
 
-  const mediaFilter = medias.filter((media) => media.photographerId === photographer.id);
   mediaFilter.forEach((media) => {
     const portfolioBlock = document.createElement("div");
     portfolioBlock.classList.add("portfolio__block");
@@ -156,72 +166,53 @@ const addPortofolio = (medias, photographersMain, photographer) => {
 
     const portfolioLikes = document.createElement("p");
     portfolioLikes.classList.add("portfolio__likes");
+    portfolioLikes.setAttribute("id", "portfolio__l");
     portfolioLikes.textContent = media.likes;
 
     const portfolioIcon = document.createElement("i");
     portfolioIcon.classList.add("fas", "fa-heart", "portfolio__icon");
+    portfolioIcon.setAttribute("id", "portfolio__i");
+    portfolioIcon.addEventListener("click", function () {
+      let likesCounter = parseInt(portfolioLikes.textContent, 10);
+      likesCounter++;
+      portfolioLikes.textContent = likesCounter;
+      // créer une fonction qui calcul le total de like
+    });
 
     portfolioInfo.appendChild(portfolioTitle);
     portfolioInfo.appendChild(portfolioPrice);
     portfolioInfo.appendChild(portfolioLikes);
-    portfolioInfo.appendChild(portfolioIcon);    
+    portfolioInfo.appendChild(portfolioIcon);
 
     if (media.image === undefined) {
-      const portfolioVideo = document.createElement("video");      
+      const portfolioVideo = document.createElement("video");
       portfolioVideo.classList.add("portfolio__media");
-      portfolioVideo.controls = true;
       portfolioVideo.alt = media.alt;
       const portfolioVideoSource = document.createElement("source");
-      const portFolioVideoSrc = "./images/Photos/" + photographer.id + "/" + media.video;
-      const videoIndex = medias.findIndex((img) => img.video === media.video);
-      portfolioVideoSource.src = portFolioVideoSrc;
+      const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.video;
+      portfolioVideoSource.src = portfolioSrc;
       portfolioVideoSource.type = "video/mp4";
       portfolioVideo.appendChild(portfolioVideoSource);
       portfolioBlock.appendChild(portfolioVideo);
       portfolioVideo.addEventListener("click", function () {
-        launchLightbox(portfolioVideoSrc, medias, videoIndex);        
+        launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
       });
-
     } else {
       const portfolioPhoto = document.createElement("img");
-      const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.image;                 
+      const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.image;
       portfolioPhoto.classList.add("portfolio__media");
       portfolioPhoto.src = portfolioSrc;
-      portfolioPhoto.alt = media.alt;      
+      portfolioPhoto.alt = media.alt;
+      portfolioPhoto.textContent = media.alt;
       portfolioBlock.appendChild(portfolioPhoto);
       portfolioPhoto.addEventListener("click", function () {
-        launchLightbox(portfolioSrc, medias);
-        lightboxAction(imgIndex);
-        console.log(imgIndex)                              
-      });            
-    };  
-  
+        launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
+      });
+    }
+
     portfolioBlock.appendChild(portfolioInfo);
     portfolioContent.appendChild(portfolioBlock);
-
-    const imgIndex = medias.findIndex((img) => img.image === media.image);        
-    
-    const lightboxAction = (imgIndex) => {
-      let currentImgIndex = imgIndex;
-      let image = document.getElementsByClassName("portfolio__media");     
-      const imgPlus = () => {
-        if (currentImgIndex < currentImgIndex.length + 1) {          
-          currentImgIndex ++          
-          image ++
-        }
-      }
-      document.querySelector(".nextImg").addEventListener("click", imgPlus); 
-      
-      const imgLess = () => {
-        if (currentImgIndex === currentImgIndex.length - 1) {
-          currentImgIndex --
-        }
-      }
-      document.querySelector(".prevImg").addEventListener("click", imgLess);
-      
-    }
   });
-
   photographersMain.appendChild(portfolioContent);
 };
 

@@ -265,16 +265,16 @@ h2 {
 }
 
 .lightbox__bground {
+  background-color: white;
   display: none;
   position: fixed;
-  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: white;
   padding-top: 230px;
+  z-index: 3;
 }
 
 .lightbox__chevron-l {
@@ -298,10 +298,13 @@ h2 {
     display: flex;
     align-items: center;    
     flex-wrap: wrap;
-    width: 75%; 
+    width: 768px; 
 }
 
 .lightbox__img {
+  position: absolute;
+  top: 250px;
+  right: 45px;
   border-radius: 10px;
   box-shadow: 4px 4px 8px -1px var(--gray--color);
   width: 290px;
@@ -310,10 +313,25 @@ h2 {
   object-position: 100% 33%;
 }
 
-.lightbox__title { 
+.lightbox__title {
+  position: absolute;
+  top: 515px;
+  left: 40px;     
   font-size: 0.875em;
   line-height: 0.78em;
   margin-top: 7px;
+}
+
+.lightbox__video {
+  position: absolute;
+  top: 250px;
+  right: 45px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px -1px var(--gray--color);
+  width: 290px;
+  height: 248px;
+  object-fit: cover;
+  object-position: 100% 33%;
 }
 
 .close__icon, .lightbox__icon, .lightbox__title {
@@ -508,7 +526,7 @@ textarea {
   }
 
   .photographers__info {
-    width: 40%;
+    width: 36%;
   }
 
   .photographers__block, .photographers__header {
@@ -523,7 +541,7 @@ textarea {
   .title {
     font-size: 24px;
     margin-right: 65px;
-    margin-top: 10px;
+    margin-top: 10px;    
   }
 
   /*===============================
@@ -569,6 +587,7 @@ textarea {
     position: fixed;  
     right: 40px;
     width: 340px;
+    z-index: 1;
   }
   .photographers__likes {
     margin-right: 5px;
@@ -591,11 +610,14 @@ textarea {
   }
 
   .portfolio__block {
-    cursor: pointer;
     margin-bottom: 30px;
-    transition: 0.2s;
+    width: 335px;    
   }
-  .portfolio__block:hover {
+
+  .porfolio__media {
+    cursor: pointer;        
+  }
+  .portfolio__media:hover {
     opacity: 0.7;
   }
 
@@ -644,7 +666,7 @@ textarea {
   ===============================*/
   .close__icon {  
     right: 85px;
-    top: 90px;  
+    top: 150px;  
   }
 
   .lightbox__bground {
@@ -652,11 +674,13 @@ textarea {
   }
 
   .lightbox__chevron-l {  
-    left: 85px;  
+    left: 85px;
+    top: 470px; 
   }
 
   .lightbox__chevron-r {  
-    right: 85px;  
+    right: 85px;
+    top: 470px;  
   }
 
   .lightbox__content{
@@ -664,15 +688,26 @@ textarea {
   }
 
   .lightbox__img {
+    height: 660px;
+    right: 130px;
+    top: 150px;  
     width: 768px;
-    height: 660px;  
   }
 
   .lightbox__title {
     margin-top: 20px;  
     font-size: 1.33em;
-    line-height: 1.72em;
+    left: 130px;
+    line-height: 1.72em;    
+    top: 820px; 
     width: 500px;
+  }
+
+  .lightbox__video {
+    height: 660px;
+    right: 130px;
+    top: 150px;
+    width: 768px;
   }
 
   .lightbox__icon:hover,
@@ -701,8 +736,7 @@ textarea {
       
   }
 
-  .validation__close {
-    
+  .validation__close {    
     right: 130px;
     font-size: 2em;
   } 
@@ -723,32 +757,46 @@ textarea {
 }
 
 @media only screen and (min-width: 1399px) {
+
   body {
     width: 1240px; 
     margin: auto;    
   }
 
   .close__icon {  
-    right: 140px;
-    top: 90px;  
-  } 
-  
+    right: 140px;     
+  }  
   
   .lightbox__chevron-l {  
     left: 140px;
-    top: 480px;  
+    top: 550px;  
   }
-  
+
   .lightbox__chevron-r {  
     right: 140px;
-    top: 480px;  
+    top: 550px;  
   }
 
   .lightbox__img {
-    margin: auto;
-    width: 1050px;
     height: 900px;  
-  }  
+    margin: auto;
+    right: 200px;
+    top: 150px; 
+    width: 1050px;
+  } 
+
+  .lightbox__title {
+    left: 190px;
+    top: 1050px;    
+  }
+  
+  .lightbox__video {
+    margin: auto;
+    height: 900px;
+    right: 200px;
+    top: 150px; 
+    width: 1050px;
+  }
 
   .nav__content {
     flex-wrap: nowrap;
@@ -803,25 +851,37 @@ textarea {
   }  
 
   .close__icon {  
-    right: 190px;
+    right: 150px;
     top: 90px;  
   } 
   
   
   .lightbox__chevron-l {  
-    left: 190px;
+    left: 100px;
     top: 600px;  
   }
   
   .lightbox__chevron-r {  
-    right: 190px;
+    right: 150px;
     top: 600px;  
   }
     
   .lightbox__img {        
+    height: 1150px; 
+    top: 90px; 
     width: 1570px;
-    height: 1150px;  
   } 
+
+  .lightbox__title {    
+    top: 1250px;
+    
+  } 
+
+  .lightbox__video {
+    height: 1150px;
+    top: 90px;
+    width: 1570px;
+  }
 
   .modal__content {
     width: 670px;
@@ -850,9 +910,21 @@ textarea {
   .lightbox__chevron-r {  
     right: 430px;      
   }
+
+  .lightbox__img {        
+    height: 1150px; 
+    right: 490px; 
+    width: 1570px;
+  } 
   
-  .lightbox__title {
-    margin-left: 170px;
+  .lightbox__title {    
+    left: 490px;    
+  }  
+
+  .lightbox__video {
+    height: 1150px;
+    right: 490px; 
+    width: 1570px;
   }
 
   .modal__content {
@@ -861,7 +933,7 @@ textarea {
   } 
 
   .validation__close {
-    right: 660px;    
+    right: 680px;    
   }
   
   .validation__send-button {

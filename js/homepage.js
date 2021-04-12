@@ -1,5 +1,5 @@
 import { data } from "./data.js";
-//import { tagsFilters } from "filters.js";
+//import { tagsFilters } from "./tags-filters.js";
 
 const createHomepage = () => {
   const photographersData = data.photographers;
@@ -60,6 +60,16 @@ const createHomepage = () => {
 
     photographersLink.appendChild(photographersName);
   });
+
+  const portrait = document.getElementById("portrait");
+  const art = document.getElementById("art");
+  const currentUrl = window.location.href;
+  
+  portrait.addEventListener("click", function () { 
+    const newUrl = currentUrl + "?tag=portrait"; 
+        
+    console.log(newUrl)
+  });   
   
   //tagsFilters(photographersData);
 

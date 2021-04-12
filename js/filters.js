@@ -2,24 +2,41 @@
  *  Filtres du dropdownMenu
  *
  */
+import { addPortfolio } from "./photographers.js";
 
 export const addfilters = (mediaFilter) => {
-  //const popularity = document.querySelector(".dropdPopularity");
-  //const date = document.querySelector(".dropdDate");
-  //const title = document.querySelector(".dropdTitle");
-  //popularity.addEventListener("click", sortByPopularity(mediaFilter));
-  //date.addEventListener("click", sortByDate(mediaFilter));
-  //title.addEventListener("click", sortByTitle(mediaFilter)); 
-  sortByPopularity(mediaFilter)
+ 
+  const dropdownMenu = document.getElementById("order");  
+  dropdownMenu.addEventListener("change", function(event){    
+    const portfolioContent = document.querySelector(".portfolio__content")
+    if (event.target.value === "Popularity") {
+      portfolioContent.innerHTML = "";
+      sortByPopularity
+      const newPopularity = mediaFilter;                  
+      portfolioContent.innerHTML = newPopularity;
+    }
+    if (event.target.value === "Date") {
+      portfolioContent.innerHTML = "";
+      sortByDate
+      const newDate = mediaFilter;
+      portfolioContent.innerHTML = newDate;
+    }
+    if (event.target.value === "Title") {
+      portfolioContent.innerHTML = "";
+      sortByTitle;      
+      const newTitle = mediaFilter;
+      addPortfolio;
+      portfolioContent.innerHTML = addPortfolio();
+    }
+      
+  });  
   // inner html gallery " "
   // function qui display la galerie et qui prend le nouveau tableau en paramètre
 };
 
 const sortByPopularity = function (mediaFilter) {
-  mediaFilter.sort((a, b) => a.likes - b.likes); 
-  console.log(mediaFilter)     
-  //renvoie le tableau 
-
+  mediaFilter.sort((a, b) => a.likes - b.likes);
+  return mediaFilter;      
 };
 
 const sortByDate = function (mediaFilter) {
@@ -40,10 +57,4 @@ const sortByTitle = function (mediaFilter) {
   });  
 };
 
-/*export const tagsFilters = function () {
-  
-  // fonction qui display tou
-  
-  
-  console.log(selectedTags);
-};*/
+

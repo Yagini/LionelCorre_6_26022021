@@ -1,7 +1,7 @@
 import { data } from "./data.js";
 import { createModal } from "./modal.js";
 import { launchLightbox } from "./lightbox.js";
-//import { addfilters } from "./filters.js";
+import { addfilters } from "./filters.js";
 //import { addLikesInteractions } from "./likes.js";
 
 const createPhotographers = () => {
@@ -18,7 +18,7 @@ const createPhotographers = () => {
   const photographersMain = document.querySelector(".photographers__main");
 
   //photographers insert
-  addPhotographerPresentation(photographer, photographersMain, mediaFilter);
+  addPhotographerPresentation(photographer, photographersMain);
 
   // section DropDownMenu
   addDropdownMenu(photographersMain);
@@ -30,12 +30,12 @@ const createPhotographers = () => {
   // section modal
   createModal(photographersMain, photographer);
 
-  //addfilters(mediaFilter);
+  addfilters(mediaFilter);
 
   //addLikesInteractions();
 };
 
-const addPhotographerPresentation = (photographer, photographersMain, mediaFilter) => {
+const addPhotographerPresentation = (photographer, photographersMain) => {
   const photographersSection = document.createElement("section");
   photographersSection.classList.add("photographers__block");
 
@@ -78,11 +78,14 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
 
   const photographersPriceInsert = document.createElement("div");
   photographersPriceInsert.classList.add("photographers__insert");
-
+  
   const photographersLikes = document.createElement("p");
   photographersLikes.classList.add("photographers__likes");
   photographersLikes.setAttribute("id", "total__likes");
-  photographersLikes.innerHTML = mediaFilter.likes;
+  const totalLikes = () => {
+    let totalLikes = media.likes += likesCounter;      
+  }
+  photographersLikes.innerHTML = totalLikes;   
 
   const photographersIcon = document.createElement("i");
   photographersIcon.classList.add("fas", "fa-heart", "photographers__icon");
@@ -175,9 +178,10 @@ const addPortfolio = (photographersMain, photographer, mediaFilter) => {
     portfolioIcon.addEventListener("click", function () {
       let likesCounter = parseInt(portfolioLikes.textContent, 10);
       likesCounter++;
-      portfolioLikes.textContent = likesCounter;
-      // créer une fonction qui calcul le total de like
+      portfolioLikes.textContent = likesCounter;      
     });
+    
+   
 
     portfolioInfo.appendChild(portfolioTitle);
     portfolioInfo.appendChild(portfolioPrice);
@@ -216,4 +220,4 @@ const addPortfolio = (photographersMain, photographer, mediaFilter) => {
   photographersMain.appendChild(portfolioContent);
 };
 
-export { createPhotographers };
+export { createPhotographers, addPortfolio };

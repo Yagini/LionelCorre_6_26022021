@@ -33,7 +33,7 @@ const createModal = (photographersMain, photographer) => {
   modalContentName.classList.add("form__data");
 
   const modalLastname = document.createElement("label");
-  modalLastname.setAttribute("for", "Lastname");
+  modalLastname.setAttribute("for", "lastname");
   modalLastname.classList.add("modal__lastname");
   modalLastname.textContent = "Nom";
 
@@ -67,13 +67,12 @@ const createModal = (photographersMain, photographer) => {
   modalContentMessage.classList.add("form__data");
 
   const modalMessage = document.createElement("label");
-  modalMessage.setAttribute("for", "Message");
+  modalMessage.setAttribute("for", "message");
   modalMessage.classList.add("modal__message");
   modalMessage.textContent = "Message";
 
   const modalInputMessage = document.createElement("textarea");
-  modalInputMessage.setAttribute("id", "message");
-  modalInputMessage.setAttribute("type", "text");
+  modalInputMessage.setAttribute("id", "message"); 
   modalInputMessage.classList.add("modal__input--textarea");
 
   const modalSpanErrorMessage = document.createElement("span");
@@ -83,10 +82,12 @@ const createModal = (photographersMain, photographer) => {
   const modalSendButton = document.createElement("button");
   modalSendButton.classList.add("modal__send-button");
   modalSendButton.setAttribute("type", "submit");
+  modalSendButton.setAttribute("aria-label", "Send");
   modalSendButton.textContent = "Envoyer";
 
   const modalCloseButton = document.createElement("button");
   modalCloseButton.classList.add("modal__close");
+  modalCloseButton.setAttribute("arial-label", "Close contact form");
 
   const modalCloseIcon = document.createElement("i");
   modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
@@ -123,11 +124,12 @@ const createModal = (photographersMain, photographer) => {
 
   photographersMain.appendChild(modalBground);
 
-  createValidationModale(photographersMain);
+  //createValidationModale(photographersMain);
   addModalFunction();
+  
 };
 
-const createValidationModale = (photographersMain) => {
+/*const createValidationModale = (photographersMain) => {
   const validationModaleBground = document.createElement("div");
   validationModaleBground.classList.add("validation__bground");
   validationModaleBground.setAttribute("id", "validation__form");
@@ -153,29 +155,31 @@ const createValidationModale = (photographersMain) => {
   
 
   photographersMain.appendChild(validationModaleBground);
-};
+};*/
 
 const addModalFunction = () => {
   const modalBg = document.querySelector(".modal__bground");
   const modalBtn = document.querySelectorAll(".button__contact");
   const modalCross = document.querySelector(".modal__close");
-  const validationModalBg = document.querySelector(".validation__bground");
-  const validationModalCross = document.querySelector(".validation__close");
+  /*const validationModalBg = document.querySelector(".validation__bground");
+  const validationModalCross = document.querySelector(".validation__close");*/
 
-  function launchModal() {
+  function launchModal(photographer) {
     modalBg.style.display = "block";
+    modalBg.setAttribute("arial-labelby", "contact me " + photographer.name);
   }
   modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
   function closeModal() {
-    modalBg.style.display = "none";         
+    modalBg.style.display = "none";        
+    modalBg.removeAttribute("arial-labelby", "contact me " + photographer.name);         
   }
   modalCross.addEventListener("click", closeModal);
 
-  function closeValidationModal() {
+  /*function closeValidationModal() {
     validationModalBg.style.display = "none";    
   }
-  validationModalCross.addEventListener("click", closeValidationModal);
+  validationModalCross.addEventListener("click", closeValidationModal);*/
 
   function validate(e) {
     e.preventDefault()
@@ -206,18 +210,21 @@ const addModalFunction = () => {
       valid = false;
     }
     if (valid === true) {            
-      validation(e);
-    }   
+      closeModal();
+    } 
     
-  }
-  const validationForm = document.getElementById("validation__form");
+  };
+  
+
+  /*const validationForm = document.getElementById("validation__form");
     function validation(e) {
       closeModal();     
       validationForm.style.display = "block";      
       e.preventDefault();
-    }
-  document.querySelector(".modal__send-button").addEventListener("click", validate); 
-  document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);
+    }*/
+  document.querySelector(".modal__send-button").addEventListener("click", validate);
+   
+  /*document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);*/
 };
 
 export { createModal };

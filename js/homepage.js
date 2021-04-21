@@ -1,7 +1,20 @@
 import { data } from "./data.js";
-//import { tagsFilters } from "./tags-filters.js";
+import { tagsFilters } from "./tagsFilters.js";
+
 
 const createHomepage = () => {
+  const popUp = document.querySelector(".pop-up");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 1) {
+      popUp.style.display = "flex";
+    } else {
+      popUp.addEventListener("click", function () {
+        popUp.style.display = "none";
+      })
+    }    
+  })
+
   const photographersData = data.photographers;
   const homepageSection = document.querySelector(".photographers");
 
@@ -19,6 +32,7 @@ const createHomepage = () => {
     const photographersLink = document.createElement("a");
     photographersLink.href = "../photographers.html?id=" + photographer.id;
     photographersLink.classList.add("photographers__link");
+    photographersLink.setAttribute("aria-label", photographer.name);
 
     const photographersName = document.createElement("h2");
     photographersName.classList.add("photographers__name");
@@ -27,6 +41,7 @@ const createHomepage = () => {
     const photographersPhoto = document.createElement("img");
     photographersPhoto.classList.add("photographers__portrait");
     photographersPhoto.src = "./images/Photos/Photographers_ID_Photos/" + photographer.portrait;
+    photographersPhoto.alt = "";
 
     const photographersPrice = document.createElement("p");
     photographersPrice.classList.add("photographers__price");
@@ -59,20 +74,11 @@ const createHomepage = () => {
     photographersFrame.appendChild(photographersPhoto);
 
     photographersLink.appendChild(photographersName);
-  });
-
-  const portrait = document.getElementById("portrait");
-  const art = document.getElementById("art");
-  const currentUrl = window.location.href;
+  });  
   
-  portrait.addEventListener("click", function () { 
-    const newUrl = currentUrl + "?tag=portrait"; 
-        
-    console.log(newUrl)
-  });   
-  
-  //tagsFilters(photographersData);
-
+  tagsFilters(photographersData);
 };
+
+
 
 export { createHomepage };

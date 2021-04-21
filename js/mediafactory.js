@@ -1,53 +1,42 @@
+export class MediaFactory {
+  constructor (src, alt) {
+    if (src.includes(".jpg")) {
+      return new ImageFactory(src , alt);
+    } else {
+      return new VideoFactory(src, alt);
+    };
+  };
+};
 
-/*class ImgFactory {
-  constructor(element) {
-    this.src = element.src;
-    this.alt = element.alt;
-  }
-}
-
-const createPicture = () => {
-  const lightboxImg = document.createElement("img");
-  lightboxImg.classList.add("lightbox__img");
-  lightboxImg.src = this.src;
-  lightboxImg.alt = this.alt;
-
-  lightboxContent.appendChild(lightboxImg);
-
-  return lightboxImg;
+class ImageFactory {
+  constructor (src, alt) {
+    this.src = src;
+    this.alt = alt;
+  };
+  createElement () {
+    const portfolioImg = document.createElement("img");    
+    portfolioImg.src = this.src;
+    portfolioImg.alt = this.alt;
+    return portfolioImg;
+  };
 };
 
 class VideoFactory {
-  constructor(element) {
-    this.src = element.src;
-    this.alt = element.alt;
-    this.type = "video/mp4"
-  }  
-}
+  constructor (src, alt) {
+    this.src = src; 
+    this.alt = alt;
+  };
+  createElement () {
+    const portfolioVideo = document.createElement("video");
+    portfolioVideo.alt = this.alt;    
+    const portfolioVideoSource = document.createElement("source");
+    portfolioVideoSource.src = this.src;
+    portfolioVideoSource.alt = this.alt;
+    portfolioVideoSource.type = "video/mp4";
+    portfolioVideo.appendChild(portfolioVideoSource);
+    return portfolioVideo;
+  };
+};
 
-const createVideo = () => {
-    const lightboxVideo = document.createElement("video");
-    lightboxVideo.classList.add("lightbox__video");    
-    lightboxVideo.alt = this.alt;
-    lightboxVideo.controls = true;
-    lightboxVideo.style.display = "none"; 
-    const lightboxVideoSrc = document.createElement("source");    
-    lightboxVideoSrc.src = this.src;
-    lightboxVideoSrc.type = this.type;
 
-    lightboxVideo.appendChild(lightboxVideoSrc);   
-    lightboxContent.appendChild(lightboxVideo);
-
-    return lightboxVideo;
-}
-
-export class MediaFactory {
-    constructor(element) {
-        if (type === "video/mp4") {
-            new createPicture(element);            
-        } else {
-            new createVideo(element);
-        };       
-    };
-};*/
 

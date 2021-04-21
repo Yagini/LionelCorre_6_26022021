@@ -151,8 +151,7 @@ const imgLess = (photographerId) => {
     lightboxContent.appendChild(prevMedia);
     lightboxContent.appendChild(lightboxTitle);
   }
-
-  lightboxFocus();
+  
 };
 
 function launchLightbox(portfolioSrc, medias, media, photographerId) {
@@ -160,8 +159,11 @@ function launchLightbox(portfolioSrc, medias, media, photographerId) {
   const lightbox = document.querySelector(".lightbox__bground");
   lightbox.style.display = "block";
   lightbox.setAttribute("aria-label", "image closeup view");
+
   const lightboxCloseBtn = document.querySelector(".close");  
   lightboxCloseBtn.addEventListener("click", closeLightbox);
+  
+  lightboxFocus();
 }
 
 function closeLightbox() {
@@ -175,41 +177,29 @@ function closeLightbox() {
  * Gestion du focus dans la lightbox
  */
 
-const lightboxFocus = (event) => {
-  const lightboxContent = document.querySelector(".lightbox__content");
-  const close = document.querySelector(".close__icon");
-  const next = document.querySelector(".lightbox__chevron-r");
-  const prev = document.querySelector(".lightbox__chevron-l");
-  if (document.activeElement === lightboxContent) {
-    if (event.keyCode === "9") {
-      if (document.activeElement === close && event.shiftKey) {
-        event.preventDefault();
-        next.focus();
-      } else if (document.activeElement === nextImg) {
-        event.preventDefault();
-        prev.focus();
-      } else {
-        event.preventDefault();
-        close.focus();
-      }
-    }
-  }
-};
+const lightboxFocus = () => {
+  document.querySelector(".lightbox__content").addEventListener("keydown", (event) => {
+    if (event.keyCode === 9) {
+      document.querySelector(".close").focus();
+    };
+  });
+};  
 
 /**
  * Gestion accessibilité clavier
  */
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "39") {
+  if (event.key === "Left" || event.key === "ArrowLeft") {
     imgPlus(event);
   }
-  if (event.key === "37") {
+  if (event.key === "Right" || event.key === "ArrowRight") {
     imgLess(event);
   }
-  if (event.key === "Escape") {
+  if (event.key === "Escape" || event.key === "Esc") {
     closeLightbox(event)
   }
 });
+
 
 export { launchLightbox };

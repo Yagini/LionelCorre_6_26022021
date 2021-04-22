@@ -8,12 +8,12 @@ const createLightbox = (portfolioSrc, medias, media, photographerId) => {
   lightboxBground.innerHTML = "";
 
   const lightboxContent = document.createElement("div");
-  lightboxContent.classList.add("lightbox__content");  
+  lightboxContent.classList.add("lightbox__content");
 
   if (portfolioSrc.includes("mp4")) {
     const lightboxVideo = document.createElement("video");
-    lightboxVideo.classList.add("lightbox__media"); 
-    lightboxVideo.alt = media.alt;   
+    lightboxVideo.classList.add("lightbox__media");
+    lightboxVideo.alt = media.alt;
     lightboxVideo.controls = true;
     const lightboxVideoSrc = document.createElement("source");
     lightboxVideoSrc.src = portfolioSrc;
@@ -26,7 +26,7 @@ const createLightbox = (portfolioSrc, medias, media, photographerId) => {
     lightboxImg.classList.add("lightbox__media");
     lightboxImg.src = portfolioSrc;
     lightboxImg.alt = media.alt;
-    lightboxContent.appendChild(lightboxImg);    
+    lightboxContent.appendChild(lightboxImg);
   }
 
   const lightboxTitle = document.createElement("h3");
@@ -151,18 +151,21 @@ const imgLess = (photographerId) => {
     lightboxContent.appendChild(prevMedia);
     lightboxContent.appendChild(lightboxTitle);
   }
-  
 };
 
+
+/**
+ *  Fonction qui gère le lancement et la  fermeture de la lightbox
+ */
 function launchLightbox(portfolioSrc, medias, media, photographerId) {
   createLightbox(portfolioSrc, medias, media, photographerId);
   const lightbox = document.querySelector(".lightbox__bground");
   lightbox.style.display = "block";
   lightbox.setAttribute("aria-label", "image closeup view");
 
-  const lightboxCloseBtn = document.querySelector(".close");  
+  const lightboxCloseBtn = document.querySelector(".close");
   lightboxCloseBtn.addEventListener("click", closeLightbox);
-  
+
   lightboxFocus();
 }
 
@@ -170,7 +173,6 @@ function closeLightbox() {
   const lightbox = document.querySelector(".lightbox__bground");
   lightbox.removeAttribute("aria-label", "image closeup view");
   lightbox.style.display = "none";
-
 }
 
 /**
@@ -178,12 +180,12 @@ function closeLightbox() {
  */
 
 const lightboxFocus = () => {
-  document.querySelector(".lightbox__content").addEventListener("keydown", (event) => {
+  document.querySelector(".lightbox__bground").addEventListener("keydown", (event) => {
     if (event.keyCode === 9) {
-      document.querySelector(".close").focus();
-    };
+      document.querySelector(".close__icon").focus();
+    }
   });
-};  
+};
 
 /**
  * Gestion accessibilité clavier
@@ -197,9 +199,8 @@ window.addEventListener("keydown", (event) => {
     imgLess(event);
   }
   if (event.key === "Escape" || event.key === "Esc") {
-    closeLightbox(event)
+    closeLightbox(event);
   }
 });
-
 
 export { launchLightbox };

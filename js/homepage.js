@@ -30,7 +30,7 @@ const createHomepage = () => {
     photographersFrame.classList.add("photographers__frame");
 
     const photographersLink = document.createElement("a");
-    photographersLink.href = "../photographers.html?id=" + photographer.id;
+    photographersLink.href = "/photographers.html?id=" + photographer.id;
     photographersLink.classList.add("photographers__link");
     photographersLink.setAttribute("aria-label", photographer.name);
 

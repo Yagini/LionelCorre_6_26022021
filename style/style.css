@@ -274,6 +274,9 @@ h2 {
 /*===============================
 ==          lightbox          ==
 ===============================*/
+.close:focus i {
+  border:1px solid #000000;
+}
 
 .close__icon {
   position: absolute;
@@ -556,12 +559,12 @@ textarea {
   ===============================*/
 
   .button__contact {
+    bottom: 1820px;
     cursor: pointer;
     display: initial;
     left: 400px;
     padding: 20px 10px;
-    position: relative;
-    top: 155px;
+    position: relative;    
     transition: 0.2s;
   }
 
@@ -759,6 +762,10 @@ textarea {
   body {
     width: 1240px; 
     margin: auto;    
+  }
+
+  .button__contact {
+    bottom: 1560px;    
   }
   
   .content {

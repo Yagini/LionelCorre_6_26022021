@@ -21,10 +21,9 @@ const createPhotographers = () => {
   addPhotographerPresentation(photographer, photographersMain, mediaFilter);
 
   // section DropDownMenu
-  addDropdownMenu(photographersMain);
+  addDropdownMenu();
 
-  // section album
-  // export pour créer le nouveau tableau
+  // section album  
   addPortfolio(photographer, mediaFilter);
 
   // section modal
@@ -36,8 +35,7 @@ const createPhotographers = () => {
 };
 
 const addPhotographerPresentation = (photographer, photographersMain, mediaFilter) => {
-  const photographersSection = document.createElement("section");
-  photographersSection.classList.add("photographers__block");
+  const photographersSection = document.querySelector(".photographers__block");  
 
   const photographersInfo = document.createElement("article");
   photographersInfo.classList.add("photographers__info");
@@ -60,12 +58,8 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographer.tags.forEach((tag) => {
     const tagList = document.createElement("li");    
     tagList.classList.add("tag__li");
-    tagList.textContent = tag;
-    const tagSpan = document.createElement("span");
-    tagSpan.classList.add("tagspan__hidden");
-    tagSpan.textContent = tag;    
-    photographersTags.appendChild(tagList);
-    photographersTags.appendChild(tagSpan);
+    tagList.textContent = tag;       
+    photographersTags.appendChild(tagList);    
   });
 
   const photographersFrame = document.createElement("div");
@@ -111,53 +105,50 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographersPriceInsert.appendChild(photographersIcon);
   photographersPriceInsert.appendChild(photographersPrice);
 
-  photographersMain.appendChild(contactButton);
-  photographersMain.appendChild(photographersSection);
+  photographersMain.appendChild(contactButton);  
   photographersMain.appendChild(photographersPriceInsert);
 };
 
-const addDropdownMenu = (photographersMain) => {
-  const photographersDropDownMenu = document.createElement("section");
-  photographersDropDownMenu.classList.add("dropdownmenu__block");
+const addDropdownMenu = () => {
+  const dropdownMenuSection = document.querySelector(".dropdownmenu__block");  
 
-  const DropDownMenuLabel = document.createElement("label");
-  DropDownMenuLabel.setAttribute("for", "order");
-  DropDownMenuLabel.classList.add("dropdownmenu__label");
-  DropDownMenuLabel.textContent = "Trier par";
+  const dropDownMenuLabel = document.createElement("label");
+  dropDownMenuLabel.setAttribute("for", "order");
+  dropDownMenuLabel.classList.add("dropdownmenu__label");
+  dropDownMenuLabel.textContent = "Trier par";
 
-  const DropDownMenuSelect = document.createElement("select");
-  DropDownMenuSelect.setAttribute("aria-label", "classer par");
-  DropDownMenuSelect.setAttribute("id", "order");
+  const dropDownMenuSelect = document.createElement("select");
+  dropDownMenuSelect.setAttribute("aria-label", "classer par");
+  dropDownMenuSelect.setAttribute("id", "order");
 
-  const DropDownMenuOptionPopularity = document.createElement("option");
-  DropDownMenuOptionPopularity.setAttribute("value", "Popularity");
-  DropDownMenuOptionPopularity.classList.add("dropdPopularity");
-  DropDownMenuOptionPopularity.textContent = "Popularité";
+  const dropDownMenuOptionPopularity = document.createElement("option");
+  dropDownMenuOptionPopularity.setAttribute("value", "Popularity");
+  dropDownMenuOptionPopularity.classList.add("dropdPopularity");
+  dropDownMenuOptionPopularity.textContent = "Popularité";
 
-  const DropDownMenuOptionDate = document.createElement("option");
-  DropDownMenuOptionDate.setAttribute("value", "Date");
-  DropDownMenuOptionDate.classList.add("dropdDate");
-  DropDownMenuOptionDate.textContent = "Date";
+  const dropDownMenuOptionDate = document.createElement("option");
+  dropDownMenuOptionDate.setAttribute("value", "Date");
+  dropDownMenuOptionDate.classList.add("dropdDate");
+  dropDownMenuOptionDate.textContent = "Date";
 
-  const DropDownMenuOptionTitle = document.createElement("option");
-  DropDownMenuOptionTitle.setAttribute("value", "Title");
-  DropDownMenuOptionTitle.classList.add("dropdTitle");
-  DropDownMenuOptionTitle.textContent = "Titre";
-
-  photographersDropDownMenu.appendChild(DropDownMenuLabel);
-  photographersDropDownMenu.appendChild(DropDownMenuSelect);
-  DropDownMenuSelect.appendChild(DropDownMenuOptionPopularity);
-  DropDownMenuSelect.appendChild(DropDownMenuOptionDate);
-  DropDownMenuSelect.appendChild(DropDownMenuOptionTitle);
-  photographersMain.appendChild(photographersDropDownMenu);
+  const dropDownMenuOptionTitle = document.createElement("option");
+  dropDownMenuOptionTitle.setAttribute("value", "Title");
+  dropDownMenuOptionTitle.classList.add("dropdTitle");
+  dropDownMenuOptionTitle.textContent = "Titre";
+  
+  dropDownMenuSelect.appendChild(dropDownMenuOptionPopularity);
+  dropDownMenuSelect.appendChild(dropDownMenuOptionDate);
+  dropDownMenuSelect.appendChild(dropDownMenuOptionTitle); 
+  dropdownMenuSection.appendChild(dropDownMenuLabel);
+  dropdownMenuSection.appendChild(dropDownMenuSelect);
+  
 };
 
-const addPortfolio = (photographer, mediaFilter) => {
-  const photographersMain = document.querySelector(".photographers__main");
+const addPortfolio = (photographer, mediaFilter) => {     
 
-  const portfolioContent = document.createElement("section");
-  portfolioContent.classList.add("portfolio__content");
-
+  const portfolioContent = document.querySelector(".portfolio__content");//queryselec  
+  portfolioContent.innerHTML = "";
+  
   mediaFilter.forEach((media) => {
     const portfolioBlock = document.createElement("div");
     portfolioBlock.classList.add("portfolio__block");
@@ -210,15 +201,15 @@ const addPortfolio = (photographer, mediaFilter) => {
       portfolioBlock.appendChild(portfolioPhoto);
       portfolioPhoto.addEventListener("click", function () {
         launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
-      });
-        
+      });        
     }
 
     portfolioBlock.appendChild(portfolioInfo);
-    portfolioContent.appendChild(portfolioBlock);
+    portfolioContent.appendChild(portfolioBlock);    
   });
-  photographersMain.appendChild(portfolioContent);
+  
  
+  
 };
 
 export { createPhotographers, addPortfolio };

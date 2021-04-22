@@ -10,18 +10,15 @@ export const addfilters = (photographer, mediaFilter) => {
     const portfolioContent = document.querySelector(".portfolio__content");
     if (event.target.value === "Popularity") {
       portfolioContent.innerHTML = "";
-      sortByPopularity(mediaFilter);
-      console.log(mediaFilter);
+      sortByPopularity(mediaFilter);      
       addPortfolio(photographer, mediaFilter);
     } else if (event.target.value === "Date") {
       portfolioContent.innerHTML = "";
-      sortByDate(mediaFilter);
-      console.log(mediaFilter);
+      sortByDate(mediaFilter);      
       addPortfolio(photographer, mediaFilter);
     } else if (event.target.value === "Title") {
       portfolioContent.innerHTML = "";
-      sortByTitle(mediaFilter);
-      console.log(mediaFilter);
+      sortByTitle(mediaFilter);      
       addPortfolio(photographer, mediaFilter);
     };
   });

@@ -2,8 +2,9 @@ import { MediaFactory } from "./mediafactory.js";
 
 let currentImgIndex = -1;
 let currentMedias = [];
+let currentPhotographerId = -1;
 
-const createLightbox = (portfolioSrc, medias, media, photographerId) => {
+const createLightbox = (portfolioSrc, medias, media) => {
   const lightboxBground = document.querySelector(".lightbox__bground");
   lightboxBground.innerHTML = "";
 
@@ -72,17 +73,17 @@ const createLightbox = (portfolioSrc, medias, media, photographerId) => {
 
   if (
     document.querySelector(".nextImg").addEventListener("click", function () {
-      imgPlus(photographerId);
+      imgPlus();
     })
   );
   if (
     document.querySelector(".prevImg").addEventListener("click", function () {
-      imgLess(photographerId, medias);
+      imgLess();
     })
   );
 };
 
-const imgPlus = (photographerId) => {
+const imgPlus = () => {
   const lightboxContent = document.querySelector(".lightbox__content");
   lightboxContent.innerHTML = "";
   if (currentImgIndex === currentMedias.length - 1) {
@@ -94,7 +95,7 @@ const imgPlus = (photographerId) => {
   const img = currentMedias[currentImgIndex];
 
   if (img.image !== undefined) {
-    const portfolioSrc = "./images/Photos/" + photographerId + "/" + img.image;
+    const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.image;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
     const nextMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
@@ -104,7 +105,7 @@ const imgPlus = (photographerId) => {
     lightboxContent.appendChild(nextMedia);
     lightboxContent.appendChild(lightboxTitle);
   } else {
-    const portfolioSrc = "./images/Photos/" + photographerId + "/" + img.video;
+    const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.video;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
     const nextMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
@@ -118,7 +119,7 @@ const imgPlus = (photographerId) => {
   }
 };
 
-const imgLess = (photographerId) => {
+const imgLess = () => {
   const lightboxContent = document.querySelector(".lightbox__content");
   lightboxContent.innerHTML = "";
   if (currentImgIndex === 0) {
@@ -130,7 +131,7 @@ const imgLess = (photographerId) => {
   const img = currentMedias[currentImgIndex];
 
   if (img.image !== undefined) {
-    const portfolioSrc = "./images/Photos/" + photographerId + "/" + img.image;
+    const portfolioSrc = "./images/Photos/" + currentPhotographerId+ "/" + img.image;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
     const prevMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
@@ -140,7 +141,7 @@ const imgLess = (photographerId) => {
     lightboxContent.appendChild(prevMedia);
     lightboxContent.appendChild(lightboxTitle);
   } else {
-    const portfolioSrc = "./images/Photos/" + photographerId + "/" + img.video;
+    const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.video;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
     const prevMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
@@ -158,7 +159,8 @@ const imgLess = (photographerId) => {
  *  Fonction qui gère le lancement et la  fermeture de la lightbox
  */
 function launchLightbox(portfolioSrc, medias, media, photographerId) {
-  createLightbox(portfolioSrc, medias, media, photographerId);
+  currentPhotographerId = photographerId;
+  createLightbox(portfolioSrc, medias, media);
   const lightbox = document.querySelector(".lightbox__bground");
   lightbox.style.display = "block";
   lightbox.setAttribute("aria-label", "image closeup view");
@@ -181,8 +183,9 @@ function closeLightbox() {
 
 const lightboxFocus = () => {
   document.querySelector(".lightbox__bground").addEventListener("keydown", (event) => {
+    console.log(event.keyCode);
     if (event.keyCode === 9) {
-      document.querySelector(".close__icon").focus();
+      document.querySelector(".close").focus();
     }
   });
 };
@@ -193,13 +196,13 @@ const lightboxFocus = () => {
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "Left" || event.key === "ArrowLeft") {
-    imgPlus(event);
+    imgPlus();
   }
   if (event.key === "Right" || event.key === "ArrowRight") {
-    imgLess(event);
+    imgLess();
   }
   if (event.key === "Escape" || event.key === "Esc") {
-    closeLightbox(event);
+    closeLightbox();
   }
 });
 

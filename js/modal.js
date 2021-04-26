@@ -1,3 +1,9 @@
+/**
+ * Création de la modale de contact
+ *
+ * @param {*} photographersMain
+ * @param {object} photographer
+ */
 const createModal = (photographersMain, photographer) => {
   const modalBground = document.createElement("div");
   modalBground.classList.add("modal__bground");
@@ -72,7 +78,7 @@ const createModal = (photographersMain, photographer) => {
   modalMessage.textContent = "Message";
 
   const modalInputMessage = document.createElement("textarea");
-  modalInputMessage.setAttribute("id", "message"); 
+  modalInputMessage.setAttribute("id", "message");
   modalInputMessage.classList.add("modal__input--textarea");
 
   const modalSpanErrorMessage = document.createElement("span");
@@ -126,7 +132,6 @@ const createModal = (photographersMain, photographer) => {
 
   //createValidationModale(photographersMain);
   addModalFunction();
-  
 };
 
 /*const createValidationModale = (photographersMain) => {
@@ -171,8 +176,8 @@ const addModalFunction = () => {
   modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
   function closeModal() {
-    modalBg.style.display = "none";        
-    modalBg.removeAttribute("arial-labelby", "contact me " + photographer.name);         
+    modalBg.style.display = "none";
+    modalBg.removeAttribute("arial-labelby", "contact me " + photographer.name);
   }
   modalCross.addEventListener("click", closeModal);
 
@@ -182,7 +187,7 @@ const addModalFunction = () => {
   validationModalCross.addEventListener("click", closeValidationModal);*/
 
   function validate(e) {
-    e.preventDefault()
+    e.preventDefault();
     document.getElementById("modal__error--first").innerHTML = "";
     document.getElementById("modal__error--last").innerHTML = "";
     document.getElementById("modal__error--email").innerHTML = "";
@@ -209,12 +214,10 @@ const addModalFunction = () => {
         "Veuillez entrer un message avec 30 caractères minimun";
       valid = false;
     }
-    if (valid === true) {            
+    if (valid === true) {
       closeModal();
-    } 
-    
-  };
-  
+    }
+  }
 
   /*const validationForm = document.getElementById("validation__form");
     function validation(e) {
@@ -223,7 +226,7 @@ const addModalFunction = () => {
       e.preventDefault();
     }*/
   document.querySelector(".modal__send-button").addEventListener("click", validate);
-   
+
   /*document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);*/
 };
 

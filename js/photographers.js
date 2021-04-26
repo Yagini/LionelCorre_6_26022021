@@ -1,8 +1,8 @@
 import { data } from "./data.js";
 import { createModal } from "./modal.js";
 import { launchLightbox } from "./lightbox.js";
-import { addfilters } from "./filters.js";
-import { MediaFactory} from "./mediafactory.js";
+import { addSorts } from "./sorts.js";
+import { MediaFactory } from "./mediafactory.js";
 
 const createPhotographers = () => {
   const queryString = window.location.search;
@@ -17,25 +17,31 @@ const createPhotographers = () => {
   const mediaFilter = medias.filter((media) => media.photographerId === photographer.id);
   const photographersMain = document.querySelector(".photographers__main");
 
-  //photographers insert
+  // Presentation photographers
   addPhotographerPresentation(photographer, photographersMain, mediaFilter);
 
   // section DropDownMenu
   addDropdownMenu();
 
-  // section album  
+  // section album
   addPortfolio(photographer, mediaFilter);
 
   // section modal
   createModal(photographersMain, photographer);
 
-  addfilters(photographer, mediaFilter);
-
-  //addLikesInteractions();
+  // fonction de trie
+  addSorts(photographer, mediaFilter);
 };
 
+/**
+ * Création de la page Html des photographes
+ * @param {object} photographer
+ * @param {*} photographersMain
+ * @param {array} mediaFilter
+ */
+
 const addPhotographerPresentation = (photographer, photographersMain, mediaFilter) => {
-  const photographersSection = document.querySelector(".photographers__block");  
+  const photographersSection = document.querySelector(".photographers__block");
 
   const photographersInfo = document.createElement("article");
   photographersInfo.classList.add("photographers__info");
@@ -56,10 +62,10 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographersTags.classList.add("photographers__tag");
 
   photographer.tags.forEach((tag) => {
-    const tagList = document.createElement("li");    
+    const tagList = document.createElement("li");
     tagList.classList.add("tag__li");
-    tagList.textContent = tag;       
-    photographersTags.appendChild(tagList);    
+    tagList.textContent = tag;
+    photographersTags.appendChild(tagList);
   });
 
   const photographersFrame = document.createElement("div");
@@ -72,18 +78,18 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
 
   const contactButton = document.createElement("button");
   contactButton.classList.add("button__contact");
-  contactButton.setAttribute("aria-label", "Contactez moi")
+  contactButton.setAttribute("aria-label", "Contactez moi");
   contactButton.textContent = "Contactez-moi";
 
   const photographersPriceInsert = document.createElement("div");
   photographersPriceInsert.classList.add("photographers__insert");
-  
+
   const photographersLikes = document.createElement("p");
   photographersLikes.classList.add("photographers__likes");
-  photographersLikes.setAttribute("id", "total__likes");  
+  photographersLikes.setAttribute("id", "total__likes");
   let totalLike = 0;
-  mediaFilter.forEach((like) => (totalLike += like.likes));      
-  photographersLikes.innerHTML = `${totalLike}`;   
+  mediaFilter.forEach((like) => (totalLike += like.likes));
+  photographersLikes.innerHTML = `${totalLike}`;
 
   const photographersIcon = document.createElement("i");
   photographersIcon.classList.add("fas", "fa-heart", "photographers__icon");
@@ -105,12 +111,14 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographersPriceInsert.appendChild(photographersIcon);
   photographersPriceInsert.appendChild(photographersPrice);
 
-  photographersMain.appendChild(contactButton);  
+  photographersMain.appendChild(contactButton);
   photographersMain.appendChild(photographersPriceInsert);
 };
-
+/**
+ * Ajout du Dropdown dans le html
+ */
 const addDropdownMenu = () => {
-  const dropdownMenuSection = document.querySelector(".dropdownmenu__block");  
+  const dropdownMenuSection = document.querySelector(".dropdownmenu__block");
 
   const dropDownMenuLabel = document.createElement("label");
   dropDownMenuLabel.setAttribute("for", "order");
@@ -135,22 +143,26 @@ const addDropdownMenu = () => {
   dropDownMenuOptionTitle.setAttribute("value", "Title");
   dropDownMenuOptionTitle.classList.add("dropdTitle");
   dropDownMenuOptionTitle.textContent = "Titre";
-  
+
   dropDownMenuSelect.appendChild(dropDownMenuOptionPopularity);
   dropDownMenuSelect.appendChild(dropDownMenuOptionDate);
-  dropDownMenuSelect.appendChild(dropDownMenuOptionTitle); 
+  dropDownMenuSelect.appendChild(dropDownMenuOptionTitle);
   dropdownMenuSection.appendChild(dropDownMenuLabel);
   dropdownMenuSection.appendChild(dropDownMenuSelect);
-  
 };
 
-const addPortfolio = (photographer, mediaFilter) => {     
+/**
+ * ajout du portfolio du photographe
+ * @param {object} photographer
+ * @param {array} mediaFilter
+ */
 
-  const portfolioContent = document.querySelector(".portfolio__content");//queryselec  
+const addPortfolio = (photographer, mediaFilter) => {
+  const portfolioContent = document.querySelector(".portfolio__content"); //queryselec
   portfolioContent.innerHTML = "";
-  
+
   mediaFilter.forEach((media) => {
-    const portfolioBlock = document.createElement("div");
+    const portfolioBlock = document.createElement("a");
     portfolioBlock.classList.add("portfolio__block");
 
     const portfolioInfo = document.createElement("div");
@@ -165,17 +177,17 @@ const addPortfolio = (photographer, mediaFilter) => {
     portfolioPrice.textContent = media.price + " €";
 
     const portfolioLikes = document.createElement("p");
-    portfolioLikes.classList.add("portfolio__likes");    
+    portfolioLikes.classList.add("portfolio__likes");
     portfolioLikes.textContent = media.likes;
 
     const portfolioIcon = document.createElement("i");
-    portfolioIcon.classList.add("fas", "fa-heart", "portfolio__icon"); 
-    portfolioIcon.setAttribute("arial-label", "likes");   
+    portfolioIcon.classList.add("fas", "fa-heart", "portfolio__icon");
+    portfolioIcon.setAttribute("arial-label", "likes");
     portfolioIcon.addEventListener("click", function () {
       let likesCounter = parseInt(portfolioLikes.textContent, 10);
       likesCounter++;
-      portfolioLikes.textContent = likesCounter;          
-    });   
+      portfolioLikes.textContent = likesCounter;
+    });
 
     portfolioInfo.appendChild(portfolioTitle);
     portfolioInfo.appendChild(portfolioPrice);
@@ -187,29 +199,26 @@ const addPortfolio = (photographer, mediaFilter) => {
       const mediaFactory = new MediaFactory(portfolioSrc, media.alt);
       const portfolioVideo = mediaFactory.createElement();
       portfolioVideo.setAttribute("aria-labelby", media.alt + " close view");
-      portfolioVideo.classList.add("portfolio__media");            
+      portfolioVideo.classList.add("portfolio__media");
       portfolioBlock.appendChild(portfolioVideo);
       portfolioVideo.addEventListener("click", function () {
         launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
       });
     } else {
-      const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.image;      
-      const mediaFactory = new MediaFactory(portfolioSrc, media.alt);      
-      const portfolioPhoto = mediaFactory.createElement()
+      const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.image;
+      const mediaFactory = new MediaFactory(portfolioSrc, media.alt);
+      const portfolioPhoto = mediaFactory.createElement();
       portfolioPhoto.setAttribute("aria-labelby", media.alt + " close view");
       portfolioPhoto.classList.add("portfolio__media");
       portfolioBlock.appendChild(portfolioPhoto);
       portfolioPhoto.addEventListener("click", function () {
         launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
-      });        
+      });
     }
 
     portfolioBlock.appendChild(portfolioInfo);
-    portfolioContent.appendChild(portfolioBlock);    
+    portfolioContent.appendChild(portfolioBlock);
   });
-  
- 
-  
 };
 
 export { createPhotographers, addPortfolio };

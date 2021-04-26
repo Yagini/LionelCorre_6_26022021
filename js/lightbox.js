@@ -4,6 +4,13 @@ let currentImgIndex = -1;
 let currentMedias = [];
 let currentPhotographerId = -1;
 
+/**
+ * Fonction qui construit la page html de la lightbox
+ * @param {URL} portfolioSrc
+ * @param {array} medias
+ * @param {object} media
+ */
+
 const createLightbox = (portfolioSrc, medias, media) => {
   const lightboxBground = document.querySelector(".lightbox__bground");
   lightboxBground.innerHTML = "";
@@ -67,10 +74,16 @@ const createLightbox = (portfolioSrc, medias, media) => {
   lightboxBground.appendChild(lightboxCloseButton);
   lightboxBground.appendChild(lightboxContent);
 
+  /**
+   * Variable qui recherche l'index de l'image en cour
+   */
   const imgIndex = medias.findIndex((img) => img.image === media.image);
   currentImgIndex = imgIndex;
   currentMedias = medias;
 
+  /**
+   * Condition qui écoute un clique pour changement d'image dans la lightbox
+   */
   if (
     document.querySelector(".nextImg").addEventListener("click", function () {
       imgPlus();
@@ -83,6 +96,9 @@ const createLightbox = (portfolioSrc, medias, media) => {
   );
 };
 
+/**
+ * Fonction qui gère le changement d'image dans la lightbox
+ */
 const imgPlus = () => {
   const lightboxContent = document.querySelector(".lightbox__content");
   lightboxContent.innerHTML = "";
@@ -93,7 +109,9 @@ const imgPlus = () => {
   }
 
   const img = currentMedias[currentImgIndex];
-
+  /**
+   * Condition qui va analyser le type de fichier (mp4 / jpg) et créer la page correspondante
+   */
   if (img.image !== undefined) {
     const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.image;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
@@ -131,7 +149,7 @@ const imgLess = () => {
   const img = currentMedias[currentImgIndex];
 
   if (img.image !== undefined) {
-    const portfolioSrc = "./images/Photos/" + currentPhotographerId+ "/" + img.image;
+    const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.image;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
     const prevMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
@@ -154,9 +172,13 @@ const imgLess = () => {
   }
 };
 
-
 /**
- *  Fonction qui gère le lancement et la  fermeture de la lightbox
+ * Fonction qui gère le lancement et la  fermeture de la lightbox
+ *
+ * @param {URL} portfolioSrc
+ * @param {array} medias
+ * @param {object} media
+ * @param {number} photographerId
  */
 function launchLightbox(portfolioSrc, medias, media, photographerId) {
   currentPhotographerId = photographerId;
@@ -185,6 +207,7 @@ const lightboxFocus = () => {
   document.querySelector(".lightbox__bground").addEventListener("keydown", (event) => {
     console.log(event.keyCode);
     if (event.keyCode === 9) {
+      event.stopPropagation();      
       document.querySelector(".close").focus();
     }
   });

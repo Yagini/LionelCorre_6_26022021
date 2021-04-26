@@ -1,3 +1,8 @@
+/**
+ * class MediaFactory qui gère la création des médias images ou vidéo
+ * selon la condition 
+ */
+
 export class MediaFactory {
   constructor (src, alt) {
     if (src.includes(".jpg")) {
@@ -8,6 +13,9 @@ export class MediaFactory {
   };
 };
 
+/**
+ * Class permettant la création du média Image
+ */
 class ImageFactory {
   constructor (src, alt) {
     this.src = src;
@@ -21,6 +29,9 @@ class ImageFactory {
   };
 };
 
+/**
+ * Class permettant la création du média vidéo
+ */
 class VideoFactory {
   constructor (src, alt) {
     this.src = src; 

@@ -187,6 +187,10 @@ const addPortfolio = (photographer, mediaFilter) => {
       let likesCounter = parseInt(portfolioLikes.textContent, 10);
       likesCounter++;
       portfolioLikes.textContent = likesCounter;
+      const photographersLikes = document.getElementById("total__likes");
+      let total = parseInt(photographersLikes.textContent, 10);
+      total++;
+      photographersLikes.textContent = total;         
     });
 
     portfolioInfo.appendChild(portfolioTitle);

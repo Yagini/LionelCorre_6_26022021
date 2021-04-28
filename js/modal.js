@@ -94,6 +94,8 @@ const createModal = (photographersMain, photographer) => {
   const modalCloseButton = document.createElement("button");
   modalCloseButton.classList.add("modal__close");
   modalCloseButton.setAttribute("arial-label", "Close contact form");
+  modalCloseButton.setAttribute("type", "button"); 
+  modalCloseButton.textContent = "Bouton de fermeture";  
 
   const modalCloseIcon = document.createElement("i");
   modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
@@ -130,10 +132,13 @@ const createModal = (photographersMain, photographer) => {
 
   photographersMain.appendChild(modalBground);
 
+  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
   //createValidationModale(photographersMain);
   addModalFunction();
 };
 
+
+// Code pour la partie validation modale qui n'ai pas demandé pour ce projet
 /*const createValidationModale = (photographersMain) => {
   const validationModaleBground = document.createElement("div");
   validationModaleBground.classList.add("validation__bground");
@@ -166,21 +171,21 @@ const addModalFunction = () => {
   const modalBg = document.querySelector(".modal__bground");
   const modalBtn = document.querySelectorAll(".button__contact");
   const modalCross = document.querySelector(".modal__close");
+  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
   /*const validationModalBg = document.querySelector(".validation__bground");
   const validationModalCross = document.querySelector(".validation__close");*/
 
-  function launchModal(photographer) {
-    modalBg.style.display = "block";
-    modalBg.setAttribute("arial-labelby", "contact me " + photographer.name);
+  function launchModal() {
+    modalBg.style.display = "block";    
   }
   modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
   function closeModal() {
-    modalBg.style.display = "none";
-    modalBg.removeAttribute("arial-labelby", "contact me " + photographer.name);
+    modalBg.style.display = "none";    ;
   }
   modalCross.addEventListener("click", closeModal);
 
+  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
   /*function closeValidationModal() {
     validationModalBg.style.display = "none";    
   }
@@ -215,10 +220,14 @@ const addModalFunction = () => {
       valid = false;
     }
     if (valid === true) {
+      console.log(document.getElementById("firstname").value);
+      console.log(document.getElementById("lastname").value);
+      console.log(document.getElementById("email").value);
       closeModal();
     }
   }
 
+  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
   /*const validationForm = document.getElementById("validation__form");
     function validation(e) {
       closeModal();     
@@ -227,6 +236,7 @@ const addModalFunction = () => {
     }*/
   document.querySelector(".modal__send-button").addEventListener("click", validate);
 
+  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
   /*document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);*/
 };
 

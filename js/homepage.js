@@ -1,5 +1,6 @@
 import { data } from "./data.js";
-import { tagsFilters } from "./tagsFilters.js";
+//import { tagsFilters } from "./tagsFilters.js";
+
 
 const createHomepage = () => {
   const popUp = document.querySelector(".pop-up");
@@ -17,8 +18,12 @@ const createHomepage = () => {
       });
     }
   });
-
+  
+  
   const photographersData = data.photographers;
+  for (let i = 0; i < photographersData.length; i++) {
+    console.log(photographersData[i].tags);
+  } 
   const homepageSection = document.querySelector(".photographers");
 
   /**
@@ -83,7 +88,7 @@ const createHomepage = () => {
   });
 
   // fonction qui filtre selon le tag sélectionner
-  tagsFilters(photographersData);
+  /*tagsFilters()*/
 };
 
 export { createHomepage };

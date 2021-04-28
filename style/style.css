@@ -278,10 +278,14 @@ h2 {
   border:1px solid #000000;
 }
 
+.nextImg:focus i {
+  border:1px solid #000000;
+}
+
 .close__icon {
   position: absolute;
-  right: 25px;
-  top: 255px;
+  right: 15px;
+  top: 80px;
 }
 
 .lightbox__bground {
@@ -293,20 +297,20 @@ h2 {
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding-top: 230px;
+  padding-top: 50px;
   z-index: 3;
 }
 
 .lightbox__chevron-l {
   position: absolute;
-  left: 25px;
-  top: 370px;
+  left: 20px;
+  top: 190px;
 }
 
 .lightbox__chevron-r {
   position: absolute;
-  right: 25px;
-  top: 370px;
+  right: 15px;
+  top: 190px;
 }
 
 .lightbox__content {
@@ -407,9 +411,12 @@ h2 {
   margin-left: 95px;   
 }
 
-.modal__close {
-  color: #ffff;
-  font-size: 1.5em;
+.close-icon {
+  color: #ffff;  
+}
+
+.modal__close {  
+  font-size: 1.5em;  
   position: absolute;
   right: 20px;
   top: 15px;
@@ -676,7 +683,7 @@ textarea {
   ===============================*/
   .close__icon {  
     right: 85px;
-    top: 150px;  
+    top: 85px;  
   }
 
   .lightbox__bground {
@@ -685,12 +692,12 @@ textarea {
 
   .lightbox__chevron-l {  
     left: 85px;
-    top: 470px; 
+    top: 390px; 
   }
 
   .lightbox__chevron-r {  
     right: 85px;
-    top: 470px;  
+    top: 390px;  
   }
 
   .lightbox__content{
@@ -782,12 +789,12 @@ textarea {
   
   .lightbox__chevron-l {  
     left: 140px;
-    top: 550px;  
+    top: 510px;  
   }
 
   .lightbox__chevron-r {  
     right: 140px;
-    top: 550px;  
+    top: 510px;  
   }
 
   .lightbox__content { 
@@ -856,7 +863,7 @@ textarea {
   }  
 
   .close__icon {  
-    right: 150px;
+    right: 100px;
     top: 90px;  
   }
   
@@ -867,7 +874,7 @@ textarea {
   }
   
   .lightbox__chevron-r {  
-    right: 150px;
+    right: 100px;
     top: 600px;  
   }
 

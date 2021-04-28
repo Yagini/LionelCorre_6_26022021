@@ -202,13 +202,23 @@ function closeLightbox() {
 /**
  * Gestion du focus dans la lightbox
  */
-
+const closeBtn = document.getElementsByClassName("close");
+const nextImg = document.getElementsByClassName("nextImg");
+const prevImg = document.getElementsByClassName("prevImg");
 const lightboxFocus = () => {
   document.querySelector(".lightbox__bground").addEventListener("keydown", (event) => {
-    console.log(event.keyCode);
     if (event.keyCode === 9) {
-      event.stopPropagation();      
-      document.querySelector(".close").focus();
+      if (event.shiftKey) {
+        if (document.activeElement === closeBtn) {
+          nextImg.focus();
+          event.stopPropagation();
+        } else {
+          if (document.activeElement === nextImg) {
+            prevImg.focus();
+            event.stopPropagation();            
+          }
+        }
+      }
     }
   });
 };
@@ -219,10 +229,10 @@ const lightboxFocus = () => {
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "Left" || event.key === "ArrowLeft") {
-    imgPlus();
+    imgLess();
   }
   if (event.key === "Right" || event.key === "ArrowRight") {
-    imgLess();
+    imgPlus();
   }
   if (event.key === "Escape" || event.key === "Esc") {
     closeLightbox();

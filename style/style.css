@@ -282,10 +282,13 @@ h2 {
   border:1px solid #000000;
 }
 
-.close__icon {
+.prevImg:focus i {
+  border:1px solid #000000;
+}
+
+.close {
   position: absolute;
-  right: 15px;
-  top: 80px;
+  right: 15px;  
 }
 
 .lightbox__bground {
@@ -301,16 +304,16 @@ h2 {
   z-index: 3;
 }
 
-.lightbox__chevron-l {
-  position: absolute;
-  left: 20px;
-  top: 190px;
-}
-
-.lightbox__chevron-r {
+.nextImg {
   position: absolute;
   right: 15px;
-  top: 190px;
+  top: 150px;
+}
+
+.prevImg {
+  position: absolute;
+  left: 20px;
+  top: 150px;
 }
 
 .lightbox__content {
@@ -411,16 +414,15 @@ h2 {
   margin-left: 95px;   
 }
 
-.close-icon {
-  color: #ffff;  
-}
-
 .modal__close {  
+  color: #ffff;
   font-size: 1.5em;  
   position: absolute;
   right: 20px;
   top: 15px;
 }
+
+
 textarea {
   width: 100%;
   height: 150px;
@@ -681,24 +683,24 @@ textarea {
   /*===============================
   ==          lightbox          ==
   ===============================*/
-  .close__icon {  
-    right: 85px;
-    top: 85px;  
+  .close {  
+    right: 80px;
+     
   }
 
   .lightbox__bground {
     padding-top: 60px;
   }
 
-  .lightbox__chevron-l {  
-    left: 85px;
-    top: 390px; 
+  .nextImg {  
+    right: 80px;
+    top: 350px;  
   }
 
-  .lightbox__chevron-r {  
-    right: 85px;
-    top: 390px;  
-  }
+  .prevImg {  
+    left: 80px;
+    top: 350px; 
+  } 
 
   .lightbox__content{
     margin: auto;
@@ -779,23 +781,23 @@ textarea {
     top: 90px;
   }
 
-  .close__icon {  
+  .close {  
     right: 140px;     
   }  
 
   .header {
     left: 90px;
   } 
-  
-  .lightbox__chevron-l {  
-    left: 140px;
-    top: 510px;  
-  }
 
-  .lightbox__chevron-r {  
+  .nextImg {  
     right: 140px;
     top: 510px;  
   }
+  
+  .prevImg {  
+    left: 140px;
+    top: 510px;  
+  }  
 
   .lightbox__content { 
     width: 1050px;
@@ -811,7 +813,7 @@ textarea {
   }
 
   .photographers {    
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .pop-up {
@@ -862,21 +864,20 @@ textarea {
     left: 310px;
   }  
 
-  .close__icon {  
+  .close {  
     right: 100px;
-    top: 90px;  
+    top: 60px;  
   }
   
+  .nextImg {  
+    right: 100px;
+    top: 580px;  
+  }
   
-  .lightbox__chevron-l {  
+  .prevImg {  
     left: 100px;
     top: 600px;  
-  }
-  
-  .lightbox__chevron-r {  
-    right: 100px;
-    top: 600px;  
-  }
+  }  
 
   .lightbox__content {
     width: 1570px;
@@ -911,17 +912,17 @@ textarea {
     left: 650px;
   }
   
-  .close__icon {  
+  .close {  
     right: 430px;     
   }   
   
-  .lightbox__chevron-l { 
-    left: 430px;      
-  }
-  
-  .lightbox__chevron-r {  
+  .nextImg {  
     right: 430px;      
   }   
+  
+  .prevImg { 
+    left: 430px;      
+  }
 
   .modal__content {
     width: 670px;

@@ -94,8 +94,7 @@ const createModal = (photographersMain, photographer) => {
   const modalCloseButton = document.createElement("button");
   modalCloseButton.classList.add("modal__close");
   modalCloseButton.setAttribute("arial-label", "Close contact form");
-  modalCloseButton.setAttribute("type", "button"); 
-  modalCloseButton.textContent = "Bouton de fermeture";  
+  modalCloseButton.setAttribute("type", "button");    
 
   const modalCloseIcon = document.createElement("i");
   modalCloseIcon.classList.add("fas", "fa-times", "close-icon");

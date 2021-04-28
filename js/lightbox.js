@@ -42,6 +42,7 @@ const createLightbox = (portfolioSrc, medias, media) => {
   lightboxTitle.textContent = media.alt;
 
   const nextImg = document.createElement("a");
+  nextImg.setAttribute('id', 'nextImg');
   nextImg.classList.add("nextImg");
   nextImg.setAttribute("aria-label", "Next image");
 
@@ -181,6 +182,7 @@ const imgLess = () => {
  * @param {number} photographerId
  */
 function launchLightbox(portfolioSrc, medias, media, photographerId) {
+  console.log("launch light");
   currentPhotographerId = photographerId;
   createLightbox(portfolioSrc, medias, media);
   const lightbox = document.querySelector(".lightbox__bground");
@@ -202,21 +204,28 @@ function closeLightbox() {
 /**
  * Gestion du focus dans la lightbox
  */
-const closeBtn = document.getElementsByClassName("close");
-const nextImg = document.getElementsByClassName("nextImg");
-const prevImg = document.getElementsByClassName("prevImg");
+
 const lightboxFocus = () => {
+  const closeBtn = document.querySelector(".close");
+  const nextImg = document.querySelector(".nextImg");
+  const prevImg = document.querySelector(".prevImg");
+
+  console.log("load");
   document.querySelector(".lightbox__bground").addEventListener("keydown", (event) => {
+    console.log("nextt");
     if (event.keyCode === 9) {
+      console.log("1");
       if (event.shiftKey) {
+        console.log("2");
+        if (document.activeElement === nextImg) {
+          console.log("3");
+          prevImg.focus();
+        }
+      } else {
+        console.log("4", document.activeElement, closeBtn, nextImg );
         if (document.activeElement === closeBtn) {
-          nextImg.focus();
-          event.stopPropagation();
-        } else {
-          if (document.activeElement === nextImg) {
-            prevImg.focus();
-            event.stopPropagation();            
-          }
+          nextImg.focus(); 
+          console.log("5") ;        
         }
       }
     }

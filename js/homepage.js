@@ -1,7 +1,6 @@
 import { data } from "./data.js";
 //import { tagsFilters } from "./tagsFilters.js";
 
-
 const createHomepage = () => {
   const popUp = document.querySelector(".pop-up");
 
@@ -18,12 +17,22 @@ const createHomepage = () => {
       });
     }
   });
-  
-  
-  const photographersData = data.photographers;
-  for (let i = 0; i < photographersData.length; i++) {
-    console.log(photographersData[i].tags);
-  } 
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const tagsParams = urlParams.get("tags");  
+
+  let photographersData;
+  const dataFilter = data.photographers.filter((photographer) => photographer.tags.includes(tagsParams));
+
+  if (tagsParams) {
+    photographersData = dataFilter;
+  } else {
+    console.log("2");
+    photographersData = data.photographers;
+  }
+  // const photographersData = tagsParams ? data.photographers.filter( ({photographer}) => photographer.tags.includes(tagsParams)) : data.photographers;
+
   const homepageSection = document.querySelector(".photographers");
 
   /**

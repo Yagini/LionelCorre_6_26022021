@@ -1,13 +1,16 @@
 import { data } from "./data.js";
-//import { tagsFilters } from "./tagsFilters.js";
+
+/*import { getData } from "./index.js";
+const data = getData();*/ 
 
 const createHomepage = () => {
-  const popUp = document.querySelector(".pop-up");
-
   /**
    * Fonction d'écoute qui gère l'apparition et
    * la disparition du petit encart PopUp qui ramène en haut de page
    */
+  
+  const popUp = document.querySelector(".pop-up");
+
   window.addEventListener("scroll", () => {
     if (window.scrollY > 1) {
       popUp.style.display = "flex";
@@ -20,7 +23,7 @@ const createHomepage = () => {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const tagsParams = urlParams.get("tags");  
+  const tagsParams = urlParams.get("tags");
 
   let photographersData;
   const dataFilter = data.photographers.filter((photographer) => photographer.tags.includes(tagsParams));
@@ -28,10 +31,18 @@ const createHomepage = () => {
   if (tagsParams) {
     photographersData = dataFilter;
   } else {
-    console.log("2");
     photographersData = data.photographers;
   }
-  // const photographersData = tagsParams ? data.photographers.filter( ({photographer}) => photographer.tags.includes(tagsParams)) : data.photographers;
+
+  if (tagsParams !== null) {
+    const tagElement = document.getElementById(tagsParams);
+    tagElement.classList.add("tag__li--active");
+
+    tagElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "index.html";
+    });
+  }
 
   const homepageSection = document.querySelector(".photographers");
 
@@ -94,10 +105,7 @@ const createHomepage = () => {
     photographersFrame.appendChild(photographersPhoto);
 
     photographersLink.appendChild(photographersName);
-  });
-
-  // fonction qui filtre selon le tag sélectionner
-  /*tagsFilters()*/
+  }); 
 };
 
 export { createHomepage };

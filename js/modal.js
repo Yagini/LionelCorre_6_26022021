@@ -94,7 +94,7 @@ const createModal = (photographersMain, photographer) => {
   const modalCloseButton = document.createElement("button");
   modalCloseButton.classList.add("modal__close");
   modalCloseButton.setAttribute("arial-label", "Close contact form");
-  modalCloseButton.setAttribute("type", "button");    
+  modalCloseButton.setAttribute("type", "button");
 
   const modalCloseIcon = document.createElement("i");
   modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
@@ -136,7 +136,6 @@ const createModal = (photographersMain, photographer) => {
   addModalFunction();
 };
 
-
 // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
 /*const createValidationModale = (photographersMain) => {
   const validationModaleBground = document.createElement("div");
@@ -175,12 +174,12 @@ const addModalFunction = () => {
   const validationModalCross = document.querySelector(".validation__close");*/
 
   function launchModal() {
-    modalBg.style.display = "block";    
+    modalBg.style.display = "block";
   }
   modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
   function closeModal() {
-    modalBg.style.display = "none";    ;
+    modalBg.style.display = "none";
   }
   modalCross.addEventListener("click", closeModal);
 
@@ -233,7 +232,18 @@ const addModalFunction = () => {
       validationForm.style.display = "block";      
       e.preventDefault();
     }*/
+
   document.querySelector(".modal__send-button").addEventListener("click", validate);
+
+  /**
+   * Fonction qui gère la fermeture de la modal en appuyant sur ESC
+   */
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      closeModal();
+    }
+  });
 
   // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
   /*document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);*/

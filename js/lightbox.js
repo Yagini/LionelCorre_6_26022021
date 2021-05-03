@@ -3,6 +3,7 @@ import { MediaFactory } from "./mediafactory.js";
 let currentImgIndex = -1;
 let currentMedias = [];
 let currentPhotographerId = -1;
+let activeElement = null;
 
 /**
  * Fonction qui construit la page html de la lightbox
@@ -41,16 +42,17 @@ const createLightbox = (portfolioSrc, medias, media) => {
   lightboxTitle.classList.add("lightbox__title");
   lightboxTitle.textContent = media.alt;
 
-  const nextImg = document.createElement("a");
-  nextImg.setAttribute('id', 'nextImg');
+  const nextImg = document.createElement("button");
   nextImg.classList.add("nextImg");
+  nextImg.setAttribute("type", "button");
   nextImg.setAttribute("aria-label", "Next image");
 
   const lightboxCheveronRight = document.createElement("i");
   lightboxCheveronRight.classList.add("fas", "fa-chevron-right", "lightbox__icon", "lightbox__chevron-r");
 
-  const prevImg = document.createElement("a");
+  const prevImg = document.createElement("button");
   prevImg.classList.add("prevImg");
+  prevImg.setAttribute("type", "button");
   prevImg.setAttribute("aria-label", "Prev image");
 
   const lightboxCheveronLeft = document.createElement("i");
@@ -148,7 +150,10 @@ const imgLess = () => {
   }
 
   const img = currentMedias[currentImgIndex];
-
+  /**
+   * Condition qui va analyser le type de fichier (mp4 / jpg) et créer la page correspondante
+   * en utilisant les paramètres de la mediafactory
+   */
   if (img.image !== undefined) {
     const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.image;
     const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
@@ -174,15 +179,14 @@ const imgLess = () => {
 };
 
 /**
- * Fonction qui gère le lancement et la  fermeture de la lightbox
+ * Fonction qui gère le lancement, la  fermeture et le focus de la lightbox
  *
  * @param {URL} portfolioSrc
  * @param {array} medias
  * @param {object} media
  * @param {number} photographerId
  */
-function launchLightbox(portfolioSrc, medias, media, photographerId) {
-  console.log("launch light");
+function launchLightbox(portfolioSrc, medias, media, photographerId) {  
   currentPhotographerId = photographerId;
   createLightbox(portfolioSrc, medias, media);
   const lightbox = document.querySelector(".lightbox__bground");
@@ -202,7 +206,8 @@ function closeLightbox() {
 }
 
 /**
- * Gestion du focus dans la lightbox
+ * Gestion du focus dans la lightbox avec la touche Tab
+ * activeElement est initialisé à Null
  */
 
 const lightboxFocus = () => {
@@ -210,30 +215,27 @@ const lightboxFocus = () => {
   const nextImg = document.querySelector(".nextImg");
   const prevImg = document.querySelector(".prevImg");
 
-  console.log("load");
   document.querySelector(".lightbox__bground").addEventListener("keydown", (event) => {
-    console.log("nextt");
     if (event.keyCode === 9) {
-      console.log("1");
-      if (event.shiftKey) {
-        console.log("2");
-        if (document.activeElement === nextImg) {
-          console.log("3");
-          prevImg.focus();
-        }
+      if (activeElement === nextImg) {        
+        event.preventDefault();
+        prevImg.focus();
+        activeElement = prevImg;
+      } else if (activeElement === closeBtn) {
+        event.preventDefault();
+        nextImg.focus();
+        activeElement = nextImg;
       } else {
-        console.log("4", document.activeElement, closeBtn, nextImg );
-        if (document.activeElement === closeBtn) {
-          nextImg.focus(); 
-          console.log("5") ;        
-        }
+        event.preventDefault();
+        closeBtn.focus();
+        activeElement = closeBtn;
       }
     }
   });
 };
 
 /**
- * Gestion accessibilité clavier
+ * Gestion accessibilité clavier dans la lightbox * 
  */
 
 window.addEventListener("keydown", (event) => {

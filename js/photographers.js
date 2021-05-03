@@ -1,10 +1,14 @@
 import { data } from "./data.js";
+//import { getData } from "./index.js";
 import { createModal } from "./modal.js";
 import { launchLightbox } from "./lightbox.js";
 import { addSorts } from "./sorts.js";
 import { MediaFactory } from "./mediafactory.js";
+//const data = getData(); 
 
 const createPhotographers = () => {
+  
+
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get("id");
@@ -29,7 +33,7 @@ const createPhotographers = () => {
   // section modal
   createModal(photographersMain, photographer);
 
-  // fonction de trie
+  // fonction de tri
   addSorts(photographer, mediaFilter);
 };
 
@@ -99,10 +103,12 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographersPrice.textContent = photographer.price + "€ / jour";
 
   photographersSection.appendChild(photographersInfo);
+  photographersSection.appendChild(contactButton);
   photographersInfo.appendChild(photographersName);
   photographersInfo.appendChild(photographersCity);
   photographersInfo.appendChild(photographersTagline);
   photographersInfo.appendChild(photographersTags);
+  
 
   photographersSection.appendChild(photographersFrame);
   photographersFrame.appendChild(photographersPortrait);
@@ -111,7 +117,6 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographersPriceInsert.appendChild(photographersIcon);
   photographersPriceInsert.appendChild(photographersPrice);
 
-  photographersMain.appendChild(contactButton);
   photographersMain.appendChild(photographersPriceInsert);
 };
 /**
@@ -158,10 +163,13 @@ const addDropdownMenu = () => {
  */
 
 const addPortfolio = (photographer, mediaFilter) => {
-  const portfolioContent = document.querySelector(".portfolio__content"); //queryselec
+  const portfolioContent = document.querySelector(".portfolio__content");
   portfolioContent.innerHTML = "";
 
   mediaFilter.forEach((media) => {
+    const portfolioArticle = document.createElement("article");
+    portfolioArticle.classList.add("portfolio__block");
+
     const portfolioBlock = document.createElement("a");
     portfolioBlock.classList.add("portfolio__block");
 
@@ -190,7 +198,7 @@ const addPortfolio = (photographer, mediaFilter) => {
       const photographersLikes = document.getElementById("total__likes");
       let total = parseInt(photographersLikes.textContent, 10);
       total++;
-      photographersLikes.textContent = total;         
+      photographersLikes.textContent = total;
     });
 
     portfolioInfo.appendChild(portfolioTitle);
@@ -219,9 +227,10 @@ const addPortfolio = (photographer, mediaFilter) => {
         launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
       });
     }
-
-    portfolioBlock.appendChild(portfolioInfo);
-    portfolioContent.appendChild(portfolioBlock);
+   
+    portfolioArticle.appendChild(portfolioBlock);
+    portfolioArticle.appendChild(portfolioInfo);
+    portfolioContent.appendChild(portfolioArticle);
   });
 };
 

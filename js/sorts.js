@@ -32,7 +32,7 @@ export const addSorts = (photographer, mediaFilter) => {
  * @returns
  */
 function sortByPopularity(mediaFilter) {
-  mediaFilter.sort((a, b) => a.likes - b.likes);
+  mediaFilter.sort((a, b) => b.likes - a.likes);
   return mediaFilter;
 }
 

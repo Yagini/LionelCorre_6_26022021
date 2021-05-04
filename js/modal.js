@@ -89,14 +89,19 @@ const createModal = (photographersMain, photographer) => {
   modalSendButton.classList.add("modal__send-button");
   modalSendButton.setAttribute("type", "submit");
   modalSendButton.setAttribute("aria-label", "Send");
-  modalSendButton.textContent = "Envoyer";
+  modalSendButton.textContent = "Envoyer";  
+
+  const modalClose = document.createElement("div");
+  modalClose.classList.add("modal__close");
 
   const modalCloseButton = document.createElement("button");
-  modalCloseButton.classList.add("modal__close");
+  modalCloseButton.classList.add("modal__close--btn");
   modalCloseButton.setAttribute("arial-label", "Close contact form");
-  modalCloseButton.setAttribute("type", "button");
-
-  const modalCloseIcon = document.createElement("i");
+  modalCloseButton.setAttribute("tittle", "Close contact form");
+  modalCloseButton.setAttribute("type", "button"); 
+  modalCloseButton.textContent = "Fermeture"
+  
+  const modalCloseIcon = document.createElement("em");
   modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
 
   const modalSpanError = document.createElement("span");
@@ -121,9 +126,10 @@ const createModal = (photographersMain, photographer) => {
   modalForm.appendChild(modalContentEmail);
   modalForm.appendChild(modalContentMessage);
   modalForm.appendChild(modalSendButton);
-  modalForm.appendChild(modalCloseButton);
+  modalForm.appendChild(modalClose);
 
-  modalCloseButton.appendChild(modalCloseIcon);
+  modalClose.appendChild(modalCloseButton);
+  modalClose.appendChild(modalCloseIcon);
 
   modalContent.appendChild(modalTitle);
   modalContent.appendChild(modalForm);

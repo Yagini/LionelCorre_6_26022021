@@ -106,12 +106,12 @@ h2 {
 
 .photographers__price {
   color: var(--gray--color);
-  font-size: 0.5625em;
+  font-size: 0.75em;
   line-height: 12px;
 }
 
 .photographers__tagline {
-  font-size: 0.625em;
+  font-size: 0.75em;
   line-height: 13px;
 }
 
@@ -429,6 +429,9 @@ h2 {
   top: 15px;
 }
 
+.modal__close--btn {
+  visibility: hidden;
+}
 
 textarea {
   width: 100%;

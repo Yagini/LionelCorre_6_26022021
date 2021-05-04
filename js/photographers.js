@@ -169,6 +169,7 @@ const addPortfolio = (photographer, mediaFilter) => {
   mediaFilter.forEach((media) => {
     const portfolioArticle = document.createElement("article");
     portfolioArticle.classList.add("portfolio__block");
+    portfolioArticle.setAttribute("tabindex", 0);
 
     const portfolioBlock = document.createElement("a");
     portfolioBlock.classList.add("portfolio__block");

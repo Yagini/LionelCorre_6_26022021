@@ -22,11 +22,11 @@ const createLightbox = (portfolioSrc, medias, media) => {
   if (portfolioSrc.includes("mp4")) {
     const lightboxVideo = document.createElement("video");
     lightboxVideo.classList.add("lightbox__media");
-    lightboxVideo.alt = media.alt;
+    lightboxVideo.alt = media.title;
     lightboxVideo.controls = true;
     const lightboxVideoSrc = document.createElement("source");
     lightboxVideoSrc.src = portfolioSrc;
-    lightboxVideoSrc.alt = media.alt;
+    lightboxVideoSrc.alt = media.title;  
     lightboxVideoSrc.type = "video/mp4";
     lightboxVideo.appendChild(lightboxVideoSrc);
     lightboxContent.appendChild(lightboxVideo);
@@ -34,13 +34,13 @@ const createLightbox = (portfolioSrc, medias, media) => {
     const lightboxImg = document.createElement("img");
     lightboxImg.classList.add("lightbox__media");
     lightboxImg.src = portfolioSrc;
-    lightboxImg.alt = media.alt;
+    lightboxImg.alt = media.title;
     lightboxContent.appendChild(lightboxImg);
   }
 
   const lightboxTitle = document.createElement("h3");
   lightboxTitle.classList.add("lightbox__title");
-  lightboxTitle.textContent = media.alt;
+  lightboxTitle.textContent = media.title;
 
   const nextImg = document.createElement("button");
   nextImg.classList.add("nextImg");
@@ -117,23 +117,23 @@ const imgPlus = () => {
    */
   if (img.image !== undefined) {
     const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.image;
-    const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
+    const mediaFactory = new MediaFactory(portfolioSrc, img.title);
     const nextMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
     lightboxTitle.classList.add("lightbox__title");
-    lightboxTitle.textContent = img.alt;
+    lightboxTitle.textContent = img.title;
     nextMedia.classList.add("lightbox__media");
     lightboxContent.appendChild(nextMedia);
     lightboxContent.appendChild(lightboxTitle);
   } else {
     const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.video;
-    const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
+    const mediaFactory = new MediaFactory(portfolioSrc, img.title);
     const nextMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
     lightboxTitle.classList.add("lightbox__title");
-    lightboxTitle.textContent = img.alt;
+    lightboxTitle.textContent = img.title;
     nextMedia.classList.add("lightbox__media");
-    nextMedia.alt = img.alt;
+    nextMedia.alt = img.title;
     nextMedia.controls = true;
     lightboxContent.appendChild(nextMedia);
     lightboxContent.appendChild(lightboxTitle);
@@ -156,21 +156,21 @@ const imgLess = () => {
    */
   if (img.image !== undefined) {
     const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.image;
-    const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
+    const mediaFactory = new MediaFactory(portfolioSrc, img.title);
     const prevMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
     lightboxTitle.classList.add("lightbox__title");
-    lightboxTitle.textContent = img.alt;
+    lightboxTitle.textContent = img.title;
     prevMedia.classList.add("lightbox__media");
     lightboxContent.appendChild(prevMedia);
     lightboxContent.appendChild(lightboxTitle);
   } else {
     const portfolioSrc = "./images/Photos/" + currentPhotographerId + "/" + img.video;
-    const mediaFactory = new MediaFactory(portfolioSrc, img.alt);
+    const mediaFactory = new MediaFactory(portfolioSrc, img.title);
     const prevMedia = mediaFactory.createElement();
     const lightboxTitle = document.createElement("h3");
     lightboxTitle.classList.add("lightbox__title");
-    lightboxTitle.textContent = img.alt;
+    lightboxTitle.textContent = img.title;
     prevMedia.classList.add("lightbox__media");
     prevMedia.controls = true;
     lightboxContent.appendChild(prevMedia);
@@ -247,7 +247,7 @@ window.addEventListener("keydown", (event) => {
   }
   if (event.key === "Escape" || event.key === "Esc") {
     closeLightbox();
-  }
+  } 
 });
 
 export { launchLightbox };

@@ -1,9 +1,4 @@
-import { data } from "./data.js";
-
-/*import { getData } from "./index.js";
-const data = getData();*/ 
-
-const createHomepage = () => {
+const createHomepage = (data) => {
   /**
    * Fonction d'écoute qui gère l'apparition et
    * la disparition du petit encart PopUp qui ramène en haut de page

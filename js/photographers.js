@@ -1,13 +1,9 @@
-import { data } from "./data.js";
-//import { getData } from "./index.js";
 import { createModal } from "./modal.js";
 import { launchLightbox } from "./lightbox.js";
 import { addSorts } from "./sorts.js";
 import { MediaFactory } from "./mediafactory.js";
-//const data = getData(); 
 
-const createPhotographers = () => {
-  
+const createPhotographers = (data) => {  
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -40,7 +36,7 @@ const createPhotographers = () => {
 /**
  * Création de la page Html des photographes
  * @param {object} photographer
- * @param {*} photographersMain
+ * @param {Element HTML} photographersMain
  * @param {array} mediaFilter
  */
 
@@ -78,7 +74,7 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   const photographersPortrait = document.createElement("img");
   photographersPortrait.classList.add("photographers__portrait", "photographers__portrait--page");
   photographersPortrait.src = "./images/Photos/Photographers_ID_Photos/" + photographer.portrait;
-  photographersPortrait.alt = photographer.alt;
+  photographersPortrait.alt = photographer.title;
 
   const contactButton = document.createElement("button");
   contactButton.classList.add("button__contact");
@@ -87,13 +83,14 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
 
   const photographersPriceInsert = document.createElement("div");
   photographersPriceInsert.classList.add("photographers__insert");
+  photographersPriceInsert.setAttribute("tabindex", 0);
 
   const photographersLikes = document.createElement("p");
   photographersLikes.classList.add("photographers__likes");
-  photographersLikes.setAttribute("id", "total__likes");
+  photographersLikes.setAttribute("id", "total__likes");  
   let totalLike = 0;
   mediaFilter.forEach((like) => (totalLike += like.likes));
-  photographersLikes.innerHTML = `${totalLike}`;
+  photographersLikes.innerHTML = totalLike;
 
   const photographersIcon = document.createElement("i");
   photographersIcon.classList.add("fas", "fa-heart", "photographers__icon");
@@ -172,14 +169,14 @@ const addPortfolio = (photographer, mediaFilter) => {
     portfolioArticle.setAttribute("tabindex", 0);
 
     const portfolioBlock = document.createElement("a");
-    portfolioBlock.classList.add("portfolio__block");
+    portfolioBlock.classList.add("portfolio__link");
 
     const portfolioInfo = document.createElement("div");
     portfolioInfo.classList.add("portfolio__info");
 
     const portfolioTitle = document.createElement("h3");
     portfolioTitle.classList.add("portfolio__title");
-    portfolioTitle.textContent = media.alt;
+    portfolioTitle.textContent = media.title;
 
     const portfolioPrice = document.createElement("p");
     portfolioPrice.classList.add("portfolio__price");
@@ -209,9 +206,9 @@ const addPortfolio = (photographer, mediaFilter) => {
 
     if (media.image === undefined) {
       const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.video;
-      const mediaFactory = new MediaFactory(portfolioSrc, media.alt);
+      const mediaFactory = new MediaFactory(portfolioSrc, media.title);
       const portfolioVideo = mediaFactory.createElement();
-      portfolioVideo.setAttribute("aria-labelby", media.alt + " close view");
+      portfolioVideo.setAttribute("aria-labelby", media.title + " close view");
       portfolioVideo.classList.add("portfolio__media");
       portfolioBlock.appendChild(portfolioVideo);
       portfolioVideo.addEventListener("click", function () {
@@ -219,9 +216,9 @@ const addPortfolio = (photographer, mediaFilter) => {
       });
     } else {
       const portfolioSrc = "./images/Photos/" + photographer.id + "/" + media.image;
-      const mediaFactory = new MediaFactory(portfolioSrc, media.alt);
+      const mediaFactory = new MediaFactory(portfolioSrc, media.title);
       const portfolioPhoto = mediaFactory.createElement();
-      portfolioPhoto.setAttribute("aria-labelby", media.alt + " close view");
+      portfolioPhoto.setAttribute("aria-labelby", media.title + " close view");
       portfolioPhoto.classList.add("portfolio__media");
       portfolioBlock.appendChild(portfolioPhoto);
       portfolioPhoto.addEventListener("click", function () {

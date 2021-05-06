@@ -163,7 +163,7 @@ h2 {
 }
 
 .tag__li--active {
-  background-color: var(--orange-color);
+  background-color: var(--red-color);
   color: white;
 }
 
@@ -171,7 +171,7 @@ h2 {
   color: var(--red-color);
   font-size: 0.875em;
   line-height: 18px;
-  margin-bottom: 100px;
+  margin-bottom: 100px;  
   text-align: end;
 }
 
@@ -423,6 +423,7 @@ h2 {
 
 .modal__close {  
   color: #ffff;
+  cursor: pointer;
   font-size: 1.5em;  
   position: absolute;
   right: 20px;
@@ -568,9 +569,10 @@ textarea {
   }
 
   .title {
-    font-size: 24px;
-    margin-right: 65px;
-    margin-top: 10px;    
+    font-size: 24px; 
+    margin-left: 700px;   
+    margin-top: 10px; 
+    text-align: center;   
   }
 
   /*===============================
@@ -643,10 +645,10 @@ textarea {
     width: 335px;    
   }
 
-  .porfolio__media {
+  .portfolio__link {
     cursor: pointer;        
   }
-  .portfolio__media:hover {
+  .portfolio__link:hover {
     opacity: 0.7;
   }
 
@@ -837,6 +839,7 @@ textarea {
   .title {
     font-size: 2.25em;
     line-height: 18px;
+    margin-left: 900px;
     margin-top: 10px;    
   }
 

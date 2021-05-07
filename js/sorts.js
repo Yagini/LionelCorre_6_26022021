@@ -54,10 +54,10 @@ function sortByDate(mediaFilter) {
 
 function sortByTitle(mediaFilter) {
   mediaFilter.sort((a, b) => {
-    if (a.alt.toLowerCase() > b.alt.toLowerCase()) {
+    if (a.title.toLowerCase() > b.title.toLowerCase()) {
       return 1;
     }
-    if (a.alt.toLowerCase() < b.alt.toLowerCase()) {
+    if (a.title.toLowerCase() < b.title.toLowerCase()) {
       return -1;
     }
     return 0;

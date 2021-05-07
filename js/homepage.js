@@ -3,7 +3,7 @@ const createHomepage = (data) => {
    * Fonction d'écoute qui gère l'apparition et
    * la disparition du petit encart PopUp qui ramène en haut de page
    */
-  
+
   const popUp = document.querySelector(".pop-up");
 
   window.addEventListener("scroll", () => {
@@ -100,7 +100,7 @@ const createHomepage = (data) => {
     photographersFrame.appendChild(photographersPhoto);
 
     photographersLink.appendChild(photographersName);
-  }); 
+  });
 };
 
 export { createHomepage };

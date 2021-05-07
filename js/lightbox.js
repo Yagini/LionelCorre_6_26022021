@@ -20,21 +20,18 @@ const createLightbox = (portfolioSrc, medias, media) => {
   lightboxContent.classList.add("lightbox__content");
 
   if (portfolioSrc.includes("mp4")) {
-    const lightboxVideo = document.createElement("video");
-    lightboxVideo.classList.add("lightbox__media");
-    lightboxVideo.alt = media.title;
+    const mediaFactory = new MediaFactory(portfolioSrc, media.title);
+    const lightboxVideo = mediaFactory.createElement();    
+    lightboxVideo.classList.add("lightbox__media");    
     lightboxVideo.controls = true;
-    const lightboxVideoSrc = document.createElement("source");
-    lightboxVideoSrc.src = portfolioSrc;
-    lightboxVideoSrc.alt = media.title;  
+    const lightboxVideoSrc = mediaFactory.createElement(portfolioSrc, media.title);     
     lightboxVideoSrc.type = "video/mp4";
     lightboxVideo.appendChild(lightboxVideoSrc);
     lightboxContent.appendChild(lightboxVideo);
-  } else {
-    const lightboxImg = document.createElement("img");
-    lightboxImg.classList.add("lightbox__media");
-    lightboxImg.src = portfolioSrc;
-    lightboxImg.alt = media.title;
+  } else {    
+    const mediaFactory = new MediaFactory(portfolioSrc, media.title);
+    const lightboxImg = mediaFactory.createElement();
+    lightboxImg.classList.add("lightbox__media");    
     lightboxContent.appendChild(lightboxImg);
   }
 

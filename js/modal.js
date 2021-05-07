@@ -89,7 +89,7 @@ const createModal = (photographersMain, photographer) => {
   modalSendButton.classList.add("modal__send-button");
   modalSendButton.setAttribute("type", "submit");
   modalSendButton.setAttribute("aria-label", "Send");
-  modalSendButton.textContent = "Envoyer";  
+  modalSendButton.textContent = "Envoyer";
 
   const modalClose = document.createElement("div");
   modalClose.classList.add("modal__close");
@@ -98,9 +98,9 @@ const createModal = (photographersMain, photographer) => {
   modalCloseButton.classList.add("modal__close--btn");
   modalCloseButton.setAttribute("arial-label", "Close contact form");
   modalCloseButton.setAttribute("tittle", "Close contact form");
-  modalCloseButton.setAttribute("type", "button"); 
-  modalCloseButton.textContent = "Fermeture"
-  
+  modalCloseButton.setAttribute("type", "button");
+  modalCloseButton.textContent = "Fermeture";
+
   const modalCloseIcon = document.createElement("em");
   modalCloseIcon.classList.add("fas", "fa-times", "close-icon");
 
@@ -137,47 +137,13 @@ const createModal = (photographersMain, photographer) => {
 
   photographersMain.appendChild(modalBground);
 
-  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
-  //createValidationModale(photographersMain);
   addModalFunction();
 };
-
-// Code pour la partie validation modale qui n'ai pas demandé pour ce projet
-/*const createValidationModale = (photographersMain) => {
-  const validationModaleBground = document.createElement("div");
-  validationModaleBground.classList.add("validation__bground");
-  validationModaleBground.setAttribute("id", "validation__form");
-  const validationModaleContent = document.createElement("div");
-  validationModaleContent.classList.add("validation__content");
-  const validationModaleText = document.createElement("p");
-  validationModaleText.classList.add("validation__text");
-  validationModaleText.textContent = "Merci, je vous contacte dès que possible"
-  const validationModalSendButton = document.createElement("button");
-  validationModalSendButton.classList.add("modal__send-button", "validation__send-button");
-  validationModalSendButton.textContent = "Valider";
-  const validationModalCloseButton = document.createElement("button");
-  validationModalCloseButton.classList.add("modal__close", "validation__close");
-  const validationModalCloseIcon = document.createElement("i");
-  validationModalCloseIcon.classList.add("fas", "fa-times", "close-icon");
-
-  validationModaleContent.appendChild(validationModaleText);
-  validationModaleContent.appendChild(validationModalSendButton);
-  validationModalCloseButton.appendChild(validationModalCloseIcon);
-
-  validationModaleBground.appendChild(validationModaleContent);
-  validationModaleBground.appendChild(validationModalCloseButton);
-  
-
-  photographersMain.appendChild(validationModaleBground);
-};*/
 
 const addModalFunction = () => {
   const modalBg = document.querySelector(".modal__bground");
   const modalBtn = document.querySelectorAll(".button__contact");
   const modalCross = document.querySelector(".modal__close");
-  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
-  /*const validationModalBg = document.querySelector(".validation__bground");
-  const validationModalCross = document.querySelector(".validation__close");*/
 
   function launchModal() {
     modalBg.style.display = "block";
@@ -188,12 +154,6 @@ const addModalFunction = () => {
     modalBg.style.display = "none";
   }
   modalCross.addEventListener("click", closeModal);
-
-  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
-  /*function closeValidationModal() {
-    validationModalBg.style.display = "none";    
-  }
-  validationModalCross.addEventListener("click", closeValidationModal);*/
 
   function validate(e) {
     e.preventDefault();
@@ -231,14 +191,6 @@ const addModalFunction = () => {
     }
   }
 
-  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
-  /*const validationForm = document.getElementById("validation__form");
-    function validation(e) {
-      closeModal();     
-      validationForm.style.display = "block";      
-      e.preventDefault();
-    }*/
-
   document.querySelector(".modal__send-button").addEventListener("click", validate);
 
   /**
@@ -250,9 +202,6 @@ const addModalFunction = () => {
       closeModal();
     }
   });
-
-  // Code pour la partie validation modale qui n'ai pas demandé pour ce projet
-  /*document.querySelector(".validation__send-button").addEventListener("click", closeValidationModal);*/
 };
 
 export { createModal };

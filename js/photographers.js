@@ -3,8 +3,7 @@ import { launchLightbox } from "./lightbox.js";
 import { addSorts } from "./sorts.js";
 import { MediaFactory } from "./mediafactory.js";
 
-const createPhotographers = (data) => {  
-
+const createPhotographers = (data) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get("id");
@@ -87,7 +86,7 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
 
   const photographersLikes = document.createElement("p");
   photographersLikes.classList.add("photographers__likes");
-  photographersLikes.setAttribute("id", "total__likes");  
+  photographersLikes.setAttribute("id", "total__likes");
   let totalLike = 0;
   mediaFilter.forEach((like) => (totalLike += like.likes));
   photographersLikes.innerHTML = totalLike;
@@ -105,7 +104,6 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
   photographersInfo.appendChild(photographersCity);
   photographersInfo.appendChild(photographersTagline);
   photographersInfo.appendChild(photographersTags);
-  
 
   photographersSection.appendChild(photographersFrame);
   photographersFrame.appendChild(photographersPortrait);
@@ -116,6 +114,7 @@ const addPhotographerPresentation = (photographer, photographersMain, mediaFilte
 
   photographersMain.appendChild(photographersPriceInsert);
 };
+
 /**
  * Ajout du Dropdown dans le html
  */
@@ -225,7 +224,7 @@ const addPortfolio = (photographer, mediaFilter) => {
         launchLightbox(portfolioSrc, mediaFilter, media, photographer.id);
       });
     }
-   
+
     portfolioArticle.appendChild(portfolioBlock);
     portfolioArticle.appendChild(portfolioInfo);
     portfolioContent.appendChild(portfolioArticle);
